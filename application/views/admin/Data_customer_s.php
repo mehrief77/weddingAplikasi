@@ -31,9 +31,9 @@
                     <td><?php echo $cr->gambar ?></td>
 
                     <!-- tombol button -->
-                    <td> <?php echo anchor('admin/Data_customer/detail_customer/' . $cr->id_customer, '<div class="btn btn-success btn-sm"><i class="fas fa-search-plus"></i></div>') ?> </td>
-                    <td> <?php echo anchor('admin/Data_customer/edit_customer/' . $cr->id_customer, '<div class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></div>') ?> </td>
-                    <td> <?php echo anchor('admin/Data_customer/hapus_customer/' . $cr->id_customer, '<div class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></div>') ?> </td>
+                    <td> <?php echo anchor('admin/Data_customer/detail_customer/' . $cr->id, '<div class="btn btn-success btn-sm"><i class="fas fa-search-plus"></i></div>') ?> </td>
+                    <td> <?php echo anchor('admin/Data_customer/edit_customer/' . $cr->id, '<div class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></div>') ?> </td>
+                    <td> <?php echo anchor('admin/Data_customer/hapus_customer/' . $cr->id, '<div class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></div>') ?> </td>
                 </tr>
 
             <?php endforeach; ?>

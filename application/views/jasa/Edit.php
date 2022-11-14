@@ -8,39 +8,22 @@
         <div class="col-lg-8">
             <!-- form ada inputan file, kalo mau uplod gambar atributnya harus ada 3 -->
             <!-- <form action="" method="" enctype="multipart/multipart/form-data"> -->
-            <!-- <?= form_open_multipart('Tukang/edit'); ?> -->
+            <?= form_open_multipart('jasa/Wedding/edit'); ?>
 
-            <?= form_open_multipart('jasa/Tukang/edit'); ?>
-
-            <div class="form-group row" hidden>
-                <label for="name" class="col-sm-2 col-form-label">ID Tukang</label>
+            <!-- <div class="form-group row" hidden> -->
+                <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">ID wedding</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="id_tkg" name="id_tkg" value="<?= $tb_jasa['id_tkg']; ?>">
-                    <?= form_error('id_tkg', '<small class="text-danger pl-3">', '</small>'); ?>
+                    <input type="text" class="form-control" id="id" name="id" value="<?= $tb_wo['id']; ?>" readonly>
+                    <?= form_error('id', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label for="name" class="col-sm-2 col-form-label">Full name</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="nama_tkg" name="nama_tkg" value="<?= $tb_jasa['nama_tkg']; ?>">
+                    <input type="text" class="form-control" id="nama_wo" name="nama_wo" value="<?= $tb_wo['nama_wo']; ?>">
                     <?= form_error('name', '<small class="text-danger pl-3">', '</small>'); ?>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="name" class="col-sm-2 col-form-label">Tempat Lahir</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" value="<?= $tb_jasa['tempat_lahir']; ?>">
-                    <?= form_error('tempat_lahir', '<small class="text-danger pl-3">', '</small>'); ?>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="name" class="col-sm-2 col-form-label">Tanggal Lahir</label>
-                <div class="col-sm-10">
-                    <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" value="<?= $tb_jasa['tanggal_lahir']; ?>">
-                    <?= form_error('tanggal_lahir', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
 
@@ -48,7 +31,7 @@
             <div class="form-group row">
                 <label for="name" class="col-sm-2 col-form-label">Alamat</label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" id="alamat" name="alamat" autofocus=""><?= $tb_jasa['alamat']; ?>
+                    <textarea class="form-control" id="alamat" name="alamat" autofocus=""><?= $tb_wo['alamat']; ?>
                     </textarea>
                     <?= form_error('alamat', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
@@ -57,105 +40,27 @@
             <div class="form-group row">
                 <label for="name" class="col-sm-2 col-form-label">No Telp</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="no_telp" name="no_telp" value="<?= $tb_jasa['no_telp']; ?>">
+                    <input type="text" class="form-control" id="no_telp" name="no_telp" value="<?= $tb_wo['no_telp']; ?>">
                     <?= form_error('no_telp', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="name" class="col-sm-2 col-form-label">Agama</label>
+                <label for="name" class="col-sm-2 col-form-label">Akun Instagram</label>
                 <div class="col-sm-10">
-                    <select class="form-control" name="agama" placeholder="Agama" value="<?= $tb_jasa['agama']; ?>">
-                        <option value="">Pilih</option>
-                        <option value="Islam">Islam</option>
-                        <option value="Katolik">Katolik</option>
-                        <option value="Protestan">Protestan</option>
-                        <option value="Hindu">Hindu</option>
-                        <option value="Budha">Budha</option>
-                    </select>
-                    <?= form_error('agama', '<small class="text-danger pl-3">', '</small>'); ?>
+                    <input type="text" class="form-control" id="akun_ig" name="akun_ig" value="<?= $tb_wo['akun_ig']; ?>">
+                    <?= form_error('akun_ig', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="name" class="col-sm-2 col-form-label">Jenis Kelamin</label>
-                <div class="col-sm-10">
-                    <select class="form-control" id="jk" name="jk" placeholder="jk" value="<?= $tb_jasa['jk']; ?>">
-                        <option value="">Pilih</option>
-                        <option value="L">L</option>
-                        <option value="P">P</option>
-                    </select>
-                    <?= form_error('jk', '<small class="text-danger pl-3">', '</small>'); ?>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="name" class="col-sm-2 col-form-label">Pendidikan</label>
-                <div class="col-sm-10">
-                    <select class="form-control" id="pendidikan" name="pendidikan" placeholder="pendidikan" value="<?= $tb_jasa['pendidikan']; ?>">
-                        <option value="">Pilih</option>
-                        <option value="sd">SD</option>
-                        <option value="smp">SMP</option>
-                        <option value="sma">SMA</option>
-                        <option value="d3">D3</option>
-                        <option value="sarjana">Sarjana</option>
-                        <option value="dll">Dll</option>
-                    </select>
-                    <?= form_error('pendidikan', '<small class="text-danger pl-3">', '</small>'); ?>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="name" class="col-sm-2 col-form-label">Keahlian</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="keahlian" name="keahlian" value="<?= $tb_jasa['keahlian']; ?>">
-                    <?= form_error('keahlian', '<small class="text-danger pl-3">', '</small>'); ?>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="name" class="col-sm-2 col-form-label">Kategori</label>
-                <div class="col-sm-10">
-                    <select class="form-control" id="kategori" name="kategori" placeholder="kategori" value="<?= $tb_jasa['kategori']; ?>">
-                        <option value="">Pilih</option>
-                        <option value="Electrical">Electrical</option>
-                        <option value="Elektronik">Elektronik</option>
-                        <option value="Perkakas">Perkakas</option>
-                        <option value="Tukang Bangunan">Tukang Bangunan</option>
-                        <option value="Tukang Ledeng">Tukang Ledeng</option>
-                    </select>
-                    <?= form_error('kategori', '<small class="text-danger pl-3">', '</small>'); ?>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="name" class="col-sm-2 col-form-label">Harga/Tarif</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="harga_tkg" name="harga_tkg" value="<?= $tb_jasa['harga_tkg']; ?>">
-                    <?= form_error('harga_tkg', '<small class="text-danger pl-3">', '</small>'); ?>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="name" class="col-sm-2 col-form-label">Bayaran</label>
-                <div class="col-sm-10">
-                    <select class="form-control" id="bayaran" name="bayaran" placeholder="bayaran" value="<?= $tb_jasa['bayaran']; ?>">
-                        <option value="">Pilih</option>
-                        <option value="Harian">Harian</option>
-                        <option value="Borongan">Borongan</option>
-                    </select>
-                    <?= form_error('bayaran', '<small class="text-danger pl-3">', '</small>'); ?>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-sm-2">Gambar</div>
+                <div class="col-sm-2">LOGO</div>
                 <div class="col-sm-10">
                     <div class="row">
                         <div class="col-sm-3">
                             <!--  thumbnail, supaya gambarnya menjadi kecil -->
-                            <!--  <img src="<?= base_url('assets/img/profile/') . $tb_jasa['gambar']; ?>" class="img-thumbnail"> -->
-                            <img src="<?= base_url('uploads/') . $tb_jasa['gambar']; ?>" class="img-thumbnail" width="240px">
+                            <!--  <img src="<?= base_url('assets/img/profile/') . $tb_wo['gambar']; ?>" class="img-thumbnail"> -->
+                            <img src="<?= base_url('uploads/') . $tb_wo['gambar']; ?>" class="img-thumbnail" width="240px">
                         </div>
                         <div class="col-sm-9">
                             <div class="custom-file">
@@ -167,12 +72,12 @@
                 </div>
             </div>
 
-            <div class="form-group row">
+             <div class="form-group row">
                 <div class="col-sm-2">KTP</div>
                 <div class="col-sm-10">
                     <div class="row">
                         <div class="col-sm-3">
-                            <img src="<?= base_url('uploads/') . $tb_jasa['no_ktp']; ?>" class="img-thumbnail">
+                            <img src="<?= base_url('uploads/') . $tb_wo['no_ktp']; ?>" class="img-thumbnail" width="240px">
                         </div>
                         <div class="col-sm-9">
                             <div class="custom-file">
@@ -184,28 +89,18 @@
                 </div>
             </div>
 
-            <div class="form-group row">
-                <div class="col-sm-2">Sertifikat</div>
+              <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">Nomer Rekening</label>
                 <div class="col-sm-10">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <img src="<?= base_url('uploads/') . $tb_jasa['sertifikat']; ?>" class="img-thumbnail">
-                        </div>
-                        <div class="col-sm-9">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="sertifikat" name="sertifikat">
-                                <label for="sertifikat" class="custom-file-label">Choose file</label>
-                            </div>
-                        </div>
-                    </div>
+                    <input type="text" class="form-control" id="no_rek" name="no_rek" value="<?= $tb_wo['no_rek']; ?>">
+                    <?= form_error('no_rek', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
-
 
             <div class="form-group row">
                 <label for="email" class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="email" name="email" value="<?= $tb_jasa['email']; ?>" readonly>
+                    <input type="text" class="form-control" id="email" name="email" value="<?= $tb_wo['email']; ?>" readonly>
                     <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>

@@ -6,17 +6,22 @@
 
             <h3>Konfirmasi Pembayaran</h3>
 
-            <!-- <form action="<?php echo base_url() . 'Customer/proses_bayar'; ?>" enctype="multipart/form-data" method="post"> -->
             <form action="<?php echo base_url() . 'admin/Invoice/proses_bayar/' . $tb_pembayaran['id_invoice']; ?>" enctype="multipart/form-data" method="post">
                 <!-- <form action="<?php echo base_url() . 'dashboard/histori_pesanan'; ?>" method="post"> -->
 
                 <!-- <input type="text" hidden name="id_customer" value="<?php echo $tb_customer['id_customer'] ?>"> -->
                 <input type="text" hidden name="id_invoice" value="<?php echo $this->uri->segment(3); ?>">
 
-                <div class="form-group">
+                <!--  <div class="form-group">
                     <label for="name">ID Pembayaran</label>
                     <input type="text" class="form-control" id="id_pembayaran" name="id_pembayaran" value="<?= $tb_pembayaran['id_pembayaran']; ?>" readonly>
                     <!-- <?= form_error('id_pembayaran', '<small class="text-danger pl-3">', '</small>'); ?> -->
+                <!-- </div> -->
+
+                <div class="form-group">
+                    <label for="name">ID Pembayaran</label>
+                    <input type="text" class="form-control" id="id" name="id" value="<?= $tb_pembayaran['id_pembayaran']; ?>" readonly>
+                    <?= form_error('id', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
 
                 <div class="form-group">
@@ -25,8 +30,18 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Pembayaran</label>
-                    <input type="text" name="metode" placeholder="Metode" class="form-control" value="<?= $tb_pembayaran['metode']; ?>" readonly>
+                    <label>Nama Bank</label>
+                    <input type="text" name="nama" placeholder="Metode" class="form-control" value="<?= $tb_pembayaran['nama_bank']; ?>" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>NO. REK</label>
+                    <input type="text" name="no_rekening" placeholder="Metode" class="form-control" value="<?= $tb_pembayaran['no_rekening']; ?>" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Nilai Nominal</label>
+                    <input type="text" name="nominal_tf" placeholder="Metode" class="form-control" value="<?= $tb_pembayaran['nominal_tf']; ?>" readonly>
                 </div>
 
                 <div class="form-group">

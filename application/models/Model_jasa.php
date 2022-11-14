@@ -5,14 +5,6 @@ class Model_jasa extends CI_Model
     public function tampil_data()
     {
         return $this->db->get('tb_jasa');
-
-        // $this->db->select('*');
-        // $this->db->from('tb_jasa');
-        // $this->db->join('tb_invoice_detail', 'tb_invoice_detail.id_tkg = tb_jasa.id_tkg', 'left');
-        // // $this->db->where('tb_jasa.id_tkg');
-        // // return $this->db->get()->result();
-        // $query = $this->db->get();
-        // return $query;
     }
 
 
@@ -43,15 +35,9 @@ class Model_jasa extends CI_Model
         $this->db->delete($table);
     }
 
-    //  public function tolak_order($where, $table)
-    // {
-    //     $this->db->where($where);
-    //     $this->db->delete($table);
-    // }
-
-    public function detail_jasa($id_tkg)
+    public function detail_jasa($id)
     {
-        $result = $this->db->where('id_tkg', $id_tkg)->get('tb_jasa');
+        $result = $this->db->where('id', $id)->get('tb_jasa');
         if ($result->num_rows() > 0) {
             return $result->result();
         } else {
@@ -62,7 +48,7 @@ class Model_jasa extends CI_Model
 
     public function detail_jasa_admin($id)
     {
-        $result = $this->db->where('id_tkg', $id)->get('tb_jasa');
+        $result = $this->db->where('id', $id)->get('tb_jasa');
         if ($result->num_rows() > 0) {
             return $result->result();
         } else {
@@ -73,7 +59,7 @@ class Model_jasa extends CI_Model
 
     public function find($id)
     {
-        $result = $this->db->where('id_tkg', $id)
+        $result = $this->db->where('id', $id)
             ->limit(1)
             ->get('tb_jasa');
         if ($result->num_rows() > 0) {
@@ -83,36 +69,9 @@ class Model_jasa extends CI_Model
         }
     }
 
-
-    // public function update_status_t()
-    // {
-    //     // $id     = $this->input->post('id_tkg');
-    //     $status = $this->input->post('status');
-
-    //     $getNama = $this->session->userdata('name');
-    //     $this->db->select('*');
-    //     $this->db->from('tb_jasa');
-    //     $this->db->where('nama_tkg', $getNama);
-    //     $resultData = $this->db->get()->row_array();
-    //     // var_dump($resultData['id_tkg']);
-
-
-    //     // var_dump($id);
-    //     // var_dump($status);
-    //     // die();
-
-    //     $test = array(
-    //         'status'           => $status,
-    //     );
-
-    //     $this->db->where('id_tkg',  $resultData['id_tkg']);
-    //     $this->db->update('tb_jasa', $test);
-    // }
-
     public function update_status_t($id_invoice, $id_tkg, $status)
     {
         $builder = $this->db->table('tb_invoice_detail');
-        // $this->db->update('tb_invoice_detail', ['status' => $status, ] $where);
         $data = [
             'status' => $status,
         ];
@@ -125,16 +84,30 @@ class Model_jasa extends CI_Model
     public function get_keyword($keyword)
     {
         $this->db->select('*');
-        $this->db->from('tb_jasa');
-        $this->db->like('nama_tkg', $keyword);
-        $this->db->or_like('tempat_lahir', $keyword);
-        $this->db->or_like('tanggal_lahir', $keyword);
+        $this->db->from('tb_wo');
+        $this->db->like('nama_wo', $keyword);
         $this->db->or_like('alamat', $keyword);
-        $this->db->or_like('keahlian', $keyword);
-        $this->db->or_like('kategori', $keyword);
-        $this->db->or_like('harga_tkg', $keyword);
+        $this->db->or_like('no_telp', $keyword);
+        $this->db->or_like('akun_ig', $keyword);
+        $this->db->or_like('gambar', $keyword);
+        $this->db->or_like('no_ktp', $keyword);
         $this->db->or_like('email', $keyword);
-        $this->db->or_like('status', $keyword);
         return $this->db->get()->result();
+    }
+
+
+    public function ambil_id_invoice_p_t($id_wo)
+    {
+        $this->db->select('tb_invoice.id as id_invoice, tb_customer.nama, tb_customer.alamat, tb_customer.no_telp, tb_customer.email, tb_paket.harga, tb_pesanan.tgl_acara, tb_pembayaranwo.nominal_tf, tb_pembayaran.bkt_transaksi, tb_pembayaranwo.id_pesan');
+
+        $this->db->from('tb_invoice');
+        $this->db->join('tb_pesanan', 'tb_invoice.id_pesan = tb_pesanan.id', 'left');
+        $this->db->join('tb_paket', 'tb_pesanan.id_paket = tb_paket.id', 'left');
+        $this->db->join('tb_customer', 'tb_pesanan.id_customer = tb_customer.id', 'left');
+        $this->db->join('tb_pembayaran', 'tb_invoice.id = tb_pembayaran.id_invoice', 'left');
+        $this->db->join('tb_pembayaranwo', 'tb_pesanan.id = tb_pembayaranwo.id_pesan', 'left');
+        $this->db->where('tb_paket.id_wo', $id_wo);
+        $this->db->limit(1);
+        return $this->db->get()->row_array();
     }
 }

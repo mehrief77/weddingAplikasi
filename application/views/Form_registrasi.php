@@ -19,30 +19,17 @@
                             <div class="col-lg-12">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Buat Akun Tukang!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Buat Akun Wedding organizer!</h1>
                                     </div>
 
                                     <form class="user" method="post" action="<?= base_url('Auth/registration'); ?>" enctype="multipart/form-data">
 
-                                        <div class="form-group">
-                                            <label>Nama Lengkap</label>
-                                            <input type="text" class="form-control" id="name" name="name" placeholder="" value="<?= set_value('name'); ?>">
-                                            <!-- membuat kode tulisan error pada nama  di register-->
-                                            <?= form_error('name', '<small class="text-danger pl-3">', '</small>'); ?>
-                                        </div>
 
                                         <div class="form-group">
-                                            <label>Tempat Lahir</label>
-                                            <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="" value="<?= set_value('tempat_lahir'); ?>">
+                                            <label>Nama Wedding</label>
+                                            <input type="text" class="form-control" id="nama" name="nama" placeholder="" value="<?= set_value('nama'); ?>">
                                             <!-- membuat kode tulisan error pada nama  di register-->
-                                            <?= form_error('tempat_lahir', '<small class="text-danger pl-3">', '</small>'); ?>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>Tanggal Lahir</label>
-                                            <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" placeholder="" value="<?= set_value('tanggal_lahir'); ?>">
-                                            <!-- membuat kode tulisan error pada nama  di register-->
-                                            <?= form_error('tanggal_lahir', '<small class="text-danger pl-3">', '</small>'); ?>
+                                            <?= form_error('nama', '<small class="text-danger pl-3">', '</small>'); ?>
                                         </div>
 
                                         <div class="form-group">
@@ -59,100 +46,30 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="agama">Agama</label>
-                                            <select class="form-control" name="agama" placeholder="Agama">
+                                            <label>Akun Instagram</label>
+                                            <input type="text" class="form-control" id="akun_ig" name="akun_ig" placeholder="" value="<?= set_value('akun_ig'); ?>">
+                                            <!-- membuat kode tulisan error pada email di register -->
+                                            <?= form_error('akun_ig', '<small class="text-danger pl-3">', '</small>'); ?>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Nama Bank</label>
+                                            <select class="form-control" name="id_bank" placeholder="id_bank">
                                                 <option value="">Pilih</option>
-                                                <option value="Islam">Islam</option>
-                                                <option value="Katolik">Katolik</option>
-                                                <option value="Protestan">Protestan</option>
-                                                <option value="Hindu">Hindu</option>
-                                                <option value="Budha">Budha</option>
+                                                <option value="1">MANDIRI</option>
+                                                <option value="2">BCA</option>
+                                                <option value="3">BRI</option>
+                                                <option value="4">PERMANATA</option>
+                                                <option value="5">BNI</option>
+                                                <option value="6">CIMBNIAGA</option>
                                             </select>
-                                            <?= form_error('agama', '<small class="text-danger pl-3">', '</small>'); ?>
+                                            <?= form_error('id_bank', '<small class="text-danger pl-3">', '</small>'); ?>
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="jk">Jenis Kelamin</label>
-                                            <select class="form-control" name="jk" placeholder="jk">
-                                                <option value="">Pilih</option>
-                                                <option value="L">L</option>
-                                                <option value="P">P</option>
-                                            </select>
-                                            <?= form_error('jk', '<small class="text-danger pl-3">', '</small>'); ?>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>Pendidikan</label>
-                                            <select class="form-control" name="pendidikan" placeholder="pendidikan">
-                                                <option value="">Pilih</option>
-                                                <option value="sd">SD</option>
-                                                <option value="smp">SMP</option>
-                                                <option value="sma">SMA</option>
-                                                <option value="d3">D3</option>
-                                                <option value="sarjana">Sarjana</option>
-                                                <option value="dll">Dll</option>
-                                            </select>
-                                            <?= form_error('pendidikan', '<small class="text-danger pl-3">', '</small>'); ?>
-                                        </div>
-
-                                        <!-- <div class="form-group">
-                                            <label>Umur</label>
-                                            <input type="text" class="form-control" id="umur" name="umur" placeholder="" value="<?= set_value('umur'); ?>">
-                                            <?= form_error('umur', '<small class="text-danger pl-3">', '</small>'); ?>
-                                        </div> -->
-
-                                        <div class="form-group">
-                                            <label>Keahlian</label>
-                                            <input type="text" class="form-control" id="keahlian" name="keahlian" placeholder="" value="<?= set_value('keahlian'); ?>">
-                                            <?= form_error('keahlian', '<small class="text-danger pl-3">', '</small>'); ?>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>Kategori</label>
-                                            <select class="form-control" id="kategori" name="kategori" value="<?= set_value('kategori'); ?>">
-                                                <option value="">Pilih</option>
-                                                <option value="Electrical">Electrical</option>
-                                                <option value="Elektronik">Elektronik</option>
-                                                <option value="Perkakas">Perkakas</option>
-                                                <option value="Tukang Bangunan">Tukang Bangunan</option>
-                                                <option value="Tukang Ledeng">Tukang Ledeng</option>
-                                            </select>
-                                            <?= form_error('kategori', '<small class="text-danger pl-3">', '</small>'); ?>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>Tarif/Harga</label>
-                                            <input type="text" class="form-control" id="harga_tkg" name="harga_tkg" placeholder="" value="<?= set_value('harga_tkg'); ?>">
-                                            <?= form_error('harga_tkg', '<small class="text-danger pl-3">', '</small>'); ?>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>Bayaran</label>
-                                            <select class="form-control" id="satuan" name="bayaran" value="<?= set_value('bayaran'); ?>">
-                                                <option value="">Pilih</option>
-                                                <option value="Harian">Harian</option>
-                                                <option value="Borongan">Borongan</option>
-                                            </select>
-                                            <?= form_error('bayaran', '<small class="text-danger pl-3">', '</small>'); ?>
-                                        </div>
-
-
-                                        <div class="form-group">
-                                            <label>Foto Diri</label>
-                                            <input type="file" class="form-control" id="gambar" name="gambar" placeholder="Full Name">
-                                            <?= form_error('gambar', '<small class="text-danger pl-3">', '</small>'); ?>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>Foto KTP</label>
-                                            <input type="file" class="form-control" id="no_ktp" name="no_ktp" placeholder="Foto Ktp">
-                                            <?= form_error('no_ktp', '<small class="text-danger pl-3">', '</small>'); ?>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>Sertifikat</label>
-                                            <input type="file" class="form-control" id="sertifikat" name="sertifikat" placeholder="Sertifikat">
-                                            <!-- <?= form_error('no_ktp', '<small class="text-danger pl-3">', '</small>'); ?> -->
+                                            <label>Nomer Rekening</label>
+                                            <input type="text" class="form-control" id="no_rek" name="no_rek" placeholder="" value="<?= set_value('no_rek'); ?>">
+                                            <?= form_error('no_rek', '<small class="text-danger pl-3">', '</small>'); ?>
                                         </div>
 
                                         <div class="form-group">
@@ -171,6 +88,18 @@
                                             <div class="col-sm-6">
                                                 <input type="password" class="form-control" id="password2" name="password2" placeholder="Repeat Password">
                                             </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Gambar</label>
+                                            <input type="file" class="form-control" id="gambar" name="gambar" placeholder="Full Name">
+                                            <?= form_error('gambar', '<small class="text-danger pl-3">', '</small>'); ?>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Foto KTP</label>
+                                            <input type="file" class="form-control" id="no_ktp" name="no_ktp" placeholder="Foto Ktp">
+                                            <?= form_error('no_ktp', '<small class="text-danger pl-3">', '</small>'); ?>
                                         </div>
 
                                         <button type="submit" class="btn btn-primary btn-user btn-block">

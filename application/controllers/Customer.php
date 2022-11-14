@@ -3,9 +3,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Customer extends CI_Controller
 {
+
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->library('pdf');
+    }
+
     public function profile()
     {
-        $data['title'] = 'My Profile';     // nama judul harus sama dengan nama yg d databases
+        $data['title'] = 'My Profile';
         $data['tb_customer'] = $this->db->get_where('tb_customer', ['email' =>
         $this->session->userdata('email')])->row_array();
 
@@ -13,7 +20,7 @@ class Customer extends CI_Controller
         $this->session->userdata('email')])->row_array();
 
         $this->load->view('templates/Header');
-        $this->load->view('templates/Sidebar');
+        $this->load->view('templates/Sidebar_c');
         $this->load->view('templates/Topbar', $data);
         $this->load->view('customer/Profile', $data);
         $this->load->view('templates/Footer');
@@ -22,14 +29,14 @@ class Customer extends CI_Controller
 
     public function edit()
     {
-        $data['title']     = 'Edit Profile Customer';     // nama judul harus sama dengan nama yg d databases
+        $data['title']     = 'Edit Profile Customer';
         $data['tb_customer']  = $this->db->get_where('tb_customer', ['email' =>
         $this->session->userdata('email')])->row_array();
 
         $this->form_validation->set_rules('nama', 'Full Name', 'required|trim');  // membuat rules utk name
         if ($this->form_validation->run() == false) {   //membuat form_validation.
             $this->load->view('templates/Header');
-            $this->load->view('templates/Sidebar');
+            $this->load->view('templates/Sidebar_c');
             $this->load->view('templates/Topbar', $data);
             $this->load->view('customer/Edit', $data);
             $this->load->view('templates/Footer');
@@ -44,7 +51,8 @@ class Customer extends CI_Controller
             if ($upload_image) {
                 $config['allowed_types'] = 'gif|jpg|png';
                 $config['max_size']      = '2048';
-                $config['upload_path']   = './assets/img/profile/';
+                // $config['upload_path']   = './assets/img/profile/';
+                $config['upload_path']   = 'uploads/';
                 $this->load->library('upload', $config);
                 if ($this->upload->do_upload('gambar')) {        // mengupload image    
                     $old_image = $data['customer']['gambar'];     // menghapus upload an gambar yg sudah tak terpakai agar tdk tersimpan di assets/img/profile, dan sintax tersebut mengetahui gambar lama yg tak terpakai....
@@ -78,41 +86,38 @@ class Customer extends CI_Controller
 
     public function transaksi()
     {
-        $data['title'] = 'Invoice Pesanan';     // nama judul harus sama dengan nama yg d databases
+        $data['title'] = 'Invoice Pesanan';
         $data['tb_customer'] = $this->db->get_where('tb_customer', ['email' =>
         $this->session->userdata('email')])->row_array();
-        $customer_test = $this->db->get_where('tb_customer', ['email' =>
-        $this->session->userdata('email')])->row_array();
-        $data['invoice'] = $this->Model_invoice->ambil_invoice();
+
+        $id_customer = $data['tb_customer']['id'];
+
+        $data['invoice'] = $this->Model_invoice->ambil_invoice($id_customer);
         // $data['pesanan'] = $this->model_invoice->ambil_id_transaksi($this->session->email);
 
+        // var_dump($data['invoice'], $data['tb_customer']['id']);
+        // die();
         $this->load->view('templates/Header');
-        $this->load->view('templates/Sidebar');
+        $this->load->view('templates/Sidebar_c');
         $this->load->view('templates/Topbar', $data);
         $this->load->view('customer/Transaksi', $data);
         $this->load->view('templates/Footer');
     }
 
 
-
     public function detail($id_invoice)
     {
-        $data['title']       = 'Detail Pesanan';     // nama judul
+        $data['title']       = 'Detail Pesanan';
         $data['tb_customer'] = $this->db->get_where('tb_customer', ['email' =>
         $this->session->userdata('email')])->row_array();
 
-        $data['invoice'] = $this->Model_invoice->ambil_id_invoice($id_invoice);
-        $data['pesanan'] = $this->Model_invoice->ambil_id_transaksi($id_invoice, $this->session->email);
-        $getIdTkg = $this->db->get_where('tb_pesanan', ['id_invoice' => $id_invoice])->row_array();
-        $this->session->set_userdata('id_tkg', $getIdTkg['id_tkg']);
-        // $data['jasa'] = $this->db->get_where('tb_jasa', ['id_tkg' => $this->session->userdata('id_tkg')])->row_array();
-        // $idTkg = $this->session->userdata('id_tkg');
-        // var_dump($data['pesanan']);
-        // var_dump($getIdTkg['id']);
-        // var_dump($idTkg);
+        $data['invoice'] = $this->Model_invoice->ambil_id_invoice_cstmr($id_invoice);
+
+        // $data['pesanan'] = $this->Model_invoice->ambil_id_transaksi($id_invoice, $this->session->email);
+        // var_dump($data['invoice']);
         // die();
         $this->load->view('templates/Header');
-        $this->load->view('templates/Sidebar');
+        $this->load->view('templates/Sidebar_c');
         $this->load->view('templates/Topbar', $data);
         $this->load->view('customer/Detail_transaksi', $data);
         $this->load->view('templates/Footer');
@@ -121,19 +126,26 @@ class Customer extends CI_Controller
 
     public function bayar($id_invoice)
     {
-        $data['title'] = 'Pembayaran';     // nama judul
+        $data['title'] = 'Pembayaran';
         $data['tb_customer'] = $this->db->get_where('tb_customer', ['email' =>
         $this->session->userdata('email')])->row_array();
 
-        $data['tb_invoice'] = $this->db->get_where('tb_invoice', ['id_customer' =>
-        $this->session->userdata('id_customer')])->row_array();
+        $this->db->select('tb_pesanan.id_customer as id_customer, tb_invoice.id as invoice_id, tb_customer.nama, tb_customer.alamat,tb_customer.no_telp as no_telp, tb_pembayaran.tgl_bayar as tgl_bayar, tb_bankapp.nama as nama_bank, tb_bankapp.no_rekening as no_rek, tb_pembayaran.bkt_transaksi');
 
-        $data['id_invoice'] = $id_invoice;
-        $data['tb_invoice_1'] = $this->db->get_where('tb_invoice', ['id_invoice' => $id_invoice])->row_array();
-        // var_dump($data['tb_invoice_1']);
+        $this->db->from('tb_invoice');
+        $this->db->join('tb_pesanan', 'tb_invoice.id_pesan = tb_pesanan.id', 'left');
+        $this->db->join('tb_customer', 'tb_pesanan.id_customer = tb_customer.id', 'left');
+        $this->db->join('tb_pembayaran', 'tb_invoice.id = tb_pembayaran.id_invoice', 'left');
+        $this->db->join('tb_bankapp', 'tb_invoice.id_bankapp = tb_bankapp.id', 'left');
+        $this->db->where('tb_invoice.id', $id_invoice);
+
+        $data['invoice'] = $this->db->get()->result_array();
+
+        // var_dump($id_invoice, $data['invoice'][0]['id_customer']);
         // die();
+
         $this->load->view('templates/Header');
-        $this->load->view('templates/Sidebar');
+        $this->load->view('templates/Sidebar_c');
         $this->load->view('templates/Topbar', $data);
         $this->load->view('customer/Bayar', $data);
         $this->load->view('templates/Footer');
@@ -143,23 +155,14 @@ class Customer extends CI_Controller
     {
         $data = array(      // mengirim data pesanan ke invoice
             'id_invoice' => $this->input->post('id_invoice'),
-            'id_customer' => $this->input->post('id_customer'),
             'tgl_bayar' => $this->input->post('tgl_bayar'),
-            'metode' => $this->input->post('metode'),
+            'nominal_tf' => $this->input->post('nominal_tf'),
+            // 'bukti_tf' => $this->_pr_upload_gambar()
             'bkt_transaksi' => $this->_pr_upload_gambar()
         );
-
         $this->db->insert('tb_pembayaran', $data);
-        // $data_inv = array(
-        //     'status_pembayaran' => 'lunas'
-        // );
         $this->db->where('id_invoice', $this->input->post('id_invoice'));
-        // $this->db->update('tb_invoice', $data_inv);
         redirect('Customer/transaksi');
-        // $is_processed = $this->model_invoice->index();
-        // if ($is_processed) {
-        //     redirect('Customer/transaksi');
-        // }
     }
 
 
@@ -188,15 +191,18 @@ class Customer extends CI_Controller
 
     public function status_t()
     {
-        $data['title'] = 'Berita Tukang';     // nama judul harus sama dengan nama yg d databases
+        $data['title'] = 'Berita Wedding';
         $data['tb_customer'] = $this->db->get_where('tb_customer', ['email' =>
         $this->session->userdata('email')])->row_array();
+
         $customer_test = $this->db->get_where('tb_customer', ['email' =>
         $this->session->userdata('email')])->row_array();
-        $data['invoice'] = $this->Model_invoice->ambil_invoice();
-        // $data['pesanan'] = $this->model_invoice->ambil_id_transaksi($this->session->email);
+
+        $id_customer = $data['tb_customer']['id'];
+        $data['invoice'] = $this->Model_invoice->ambil_invoice_stts_t($id_customer);
+
         $this->load->view('templates/Header');
-        $this->load->view('templates/Sidebar');
+        $this->load->view('templates/Sidebar_c');
         $this->load->view('templates/Topbar', $data);
         $this->load->view('customer/Status_t_v', $data);
         $this->load->view('templates/Footer');
@@ -205,97 +211,115 @@ class Customer extends CI_Controller
 
     public function detail_status($id_invoice)
     {
-        $data['title']       = 'Status Tukang';     // nama judul
+        $data['title']       = 'Status Wedding';
         $data['tb_customer'] = $this->db->get_where('tb_customer', ['email' =>
         $this->session->userdata('email')])->row_array();
-        $data['invoice'] = $this->Model_invoice->ambil_id_invoice($id_invoice);
-        // $this->session->set_userdata('id_tkg', $getIdTkg['id_tkg']);
-        $data['pesanan'] = $this->Model_invoice->ambil_id_transaksi($id_invoice, $this->session->email);
-        //  var_dump($data['pesanan']);
-        // die();
-        // $getIdTkg = $this->db->get_where('tb_pesanan', ['id_invoice' => $id_invoice])->row_array();
-        // $this->db->join('tb_jasa', 'tb_jasa.id_tkg = tb_pesanan.id_tkg', 'left');
-        // $this->db->where('tb_pesanan.id_invoice', $id_invoice);
 
-        $getIdTkg = $this->db->get_where('tb_pesanan', ['id_invoice' => $id_invoice])->row_array();
-        $this->db->join('tb_jasa', 'tb_jasa.id_tkg = tb_pesanan.id_tkg', 'left');
-        // komen ini boleh di buka utk status jasa 
-        // $this->db->join('tb_invoice_detail', 'tb_invoice_detail.id_tkg = tb_jasa.id_tkg', 'left');
-        $this->db->where('tb_pesanan.id_invoice', $id_invoice);
+        $data['invoice'] = $this->Model_invoice->ambil_id_invoice_d_s($id_invoice);
 
-        $data['tukang'] = $this->db->get('tb_pesanan')->result();
-        $this->session->set_userdata('id_tkg', $getIdTkg['id_tkg']);
-        // $data['jasa'] = $this->db->get()->result();
         $this->load->view('templates/Header');
-        $this->load->view('templates/Sidebar');
+        // $this->load->view('templates/Sidebar');
+        $this->load->view('templates/Sidebar_c');
         $this->load->view('templates/Topbar', $data);
         $this->load->view('customer/Berita_t', $data);
         $this->load->view('templates/Footer');
     }
 
 
+
     public function status_c()
     {
-        $data['title'] = 'Status Pesanan';     // nama judul harus sama dengan nama yg d databases
+        $data['title'] = 'Status Pesanan';
         $data['tb_customer'] = $this->db->get_where('tb_customer', ['email' =>
         $this->session->userdata('email')])->row_array();
+
         $customer_test = $this->db->get_where('tb_customer', ['email' =>
         $this->session->userdata('email')])->row_array();
-        $data['invoice'] = $this->Model_invoice->ambil_invoice();
+
+        $id_customer = $data['tb_customer']['id'];
+        $data['invoice'] = $this->Model_invoice->ambil_invoice_stts_c($id_customer);
         // $data['pesanan'] = $this->model_invoice->ambil_id_transaksi($this->session->email);
+
         $this->load->view('templates/Header', $data);
-        $this->load->view('templates/Sidebar', $data);
+        $this->load->view('templates/Sidebar_c', $data);
         $this->load->view('templates/Topbar', $data);
         $this->load->view('customer/Transaksi_T_cus', $data);
         $this->load->view('templates/Footer');
     }
 
 
+
     public function detail_penilaian_c($id_invoice)
     {
-        $data['title']       = 'Penilaian Tukang';     // nama judul
+        $data['title']       = 'Penilaian Wedding';
         $data['tb_customer'] = $this->db->get_where('tb_customer', ['email' =>
         $this->session->userdata('email')])->row_array();
-        $data['invoice'] = $this->Model_invoice->ambil_id_invoice($id_invoice);
-        $data['pesanan'] = $this->Model_invoice->ambil_id_transaksi($id_invoice, $this->session->email);
-        // var_dump($data['pesanan']);
-        // die();
-        $getIdTkg = $this->db->get_where('tb_pesanan', ['id_invoice' => $id_invoice])->row_array();
-        $this->db->join('tb_jasa', 'tb_jasa.id_tkg = tb_pesanan.id_tkg', 'left');
-        $this->db->where('tb_pesanan.id_invoice', $id_invoice);
-        $this->db->where('tb_pesanan.id_tkg', $getIdTkg['id_tkg']);
-        // $data['tukang'] = $this->db->get('tb_pesanan')->result();
-        $this->session->set_userdata('id_tkg', $getIdTkg['id_tkg']);
-        $data['tukang'] = $this->db->get_where('tb_pesanan', ['id_invoice' => $id_invoice])->result();
-        $data['tukang_2'] =  $this->Model_customer->ambil_id_invoice_test($id_invoice);
 
-        // $this->db->select('*');
-        // $this->db->like('id_invoice', '$id_invoice', 'before');
-        // $this->db->from('tb_pesanan');
-        // $data['tukang'] = $this->db->get();
-        // var_dump($data['tukang_2']);
-        // print_r($query);
-        // die();
-
+        $data['invoice'] = $this->Model_invoice->ambil_id_invoice_d_p_c($id_invoice);
+        // var_dump($data['invoice']);
+        // die;
         $this->load->view('templates/Header');
-        $this->load->view('templates/Sidebar');
+        $this->load->view('templates/Sidebar_c');
         $this->load->view('templates/Topbar', $data);
         $this->load->view('customer/Berita_cus', $data);
         $this->load->view('templates/Footer');
     }
 
 
-    public function update_status_c($id_invoice)
+    public function update_status_c($id)
     {
-        // var_dump($id_invoice, $this->input->post('id_tkg'), $this->input->post('status_jasa'));
+        // $data['customer'] = $this->Model_customer->update_status_cc($id_invoice, $this->input->post('id_tkg'), $this->input->post('status_jasa'));
+        $status_pesanbycs = $this->input->post('status_pesanbycs');
+        $id_pesan = $this->input->post('id_pesan');
+        // var_dump($id_pesan, $status_pesanbycs);
         // die();
-        $data['customer'] = $this->Model_customer->update_status_cc($id_invoice, $this->input->post('id_tkg'), $this->input->post('status_jasa'));
+        // $data['customer'] = $this->Model_customer->update_status_cc($id, $status_pesanbycs ,$this->input->post('status_pesanbycs'));
+
+        $data['customer'] = $this->Model_customer->update_status_cc($id_pesan, $status_pesanbycs);
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">update status Success!!</div>');
         redirect('Customer/status_c');
-        // $this->load->view('templates/Header');
-        // $this->load->view('templates/Sidebar');
-        // $this->load->view('customer/Berita_c', $data);
-        // $this->load->view('templates/Footer');
+    }
+
+    public function cetak()
+    {
+        $data['tb_customer'] = $this->db->get_where('tb_customer', ['email' =>
+        $this->session->userdata('email')])->row_array();
+
+        $id_customer = $data['tb_customer']['id'];
+        $data['invoice'] = $this->Model_invoice->ambil_invoice($id_customer);
+
+
+        error_reporting(0); // AGAR ERROR MASALAH VERSI PHP TIDAK MUNCUL
+        $pdf = new FPDF('l', 'mm', 'A4');
+        // membuat halaman baru
+        $pdf->AddPage();
+        // setting jenis font yang akan digunakan
+        $pdf->SetFont('Arial', 'B', 16);
+        // mencetak string 
+        // $pdf->Cell(25,6,'Hai admin',0,1);
+        $pdf->Cell(270, 7, 'MEGRASHY_WEDDING', 0, 1, 'C');
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(270, 7, 'DAFTAR TRANSAKSI', 0, 1, 'C');
+        // Memberikan space kebawah agar tidak terlalu rapat
+        $pdf->Cell(10, 7, '', 0, 1);
+        $pdf->SetFont('Arial', 'B', 10);
+        // $pdf->Cell(80,6,'NPM',1,0);
+        $pdf->Cell(25, 6, 'ID CUSTOMER', 1, 0, 'C');
+        $pdf->Cell(40, 6, 'ID PESAN', 1, 0, 'C');
+        $pdf->Cell(40, 6, 'TANGAL PESAN', 1, 0, 'C');
+        $pdf->Cell(40, 6, 'BATAS BAYAR', 1, 0, 'C');
+        $pdf->Cell(40, 6, 'STATUS', 1, 1, 'C');
+        $pdf->SetFont('Arial', '', 10, 'C');
+        $invoice = $this->Model_invoice->tampil_data_cus($id_customer);
+        foreach ($invoice as $inv) {
+            $pdf->Cell(25, 6, $inv->id_invoice, 1, 0);
+            $pdf->Cell(40, 6, $inv->id_pesan, 1, 0);
+            $pdf->Cell(40, 6, $inv->tgl_pesan, 1, 0);
+            $pdf->Cell(40, 6, $inv->batas_bayar, 1, 0);
+            $pdf->Cell(40, 6, $inv->status_pembayaran, 1, 1);
+        }
+
+        $pdf->Output();
     }
 }

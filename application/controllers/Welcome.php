@@ -21,10 +21,9 @@ class Welcome extends CI_Controller
 	 */
 	public function index()
 	{
-		$data['jasa'] = $this->Model_jasa->tampil_data()->result();
-		$this->load->view('templates/Header');
-		$this->load->view('templates/Sidebar_wel');
-		// $this->load->view('templates/navbar');
+		$data['wedding'] = $this->Model_wo->tampil_data()->result();
+		// $data['wedding'] = $this->Model_wo->tampil_data2()->result();
+		$this->load->view('templates/Header_wel');
 		$this->load->view('Dashboard', $data);
 		$this->load->view('templates/Footer');
 	}
@@ -32,7 +31,7 @@ class Welcome extends CI_Controller
 	public function search()
 	{
 		$keyword = $this->input->post('keyword');
-		$data['jasa'] = $this->Model_jasa->get_keyword($keyword);
+		$data['wedding'] = $this->Model_wo->get_keyword($keyword);
 		$this->load->view('templates/Header');
 		$this->load->view('templates/Sidebar_wel');
 		$this->load->view('Dashboard_s', $data);

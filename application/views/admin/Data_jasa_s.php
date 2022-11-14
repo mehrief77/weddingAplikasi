@@ -15,45 +15,40 @@
         <table class="table table-bordered table-hover">
             <tr class="text-center">
                 <th>NO</th>
+                <th>ID WEDDING</th>
                 <th>NAMA</th>
                 <th>ALAMAT</th>
-                <th>UMUR</th>
-                <th>J_K</th>
-                <th>PENDIDIKAN</th>
-                <th>AGAMA</th>
-                <th>KEAHLIAN</th>
-                <th>KATEGORI</th>
-                <th>HARGA</th>
-                <th>Gambar</th>
+                <th>TELP</th>
+                <th>INSTAGRAM</th>
+                <th>LOGO</th>
                 <th>KTP</th>
-                <th colspan="3">AKSI</th>
+                <th>NO REKENING</th>
+                <th>EMAIL</th>
+                <th colspan="4">AKSI</th>
             </tr>
-
-            <?php
+            
+             <?php
             $no = 1;
-            foreach ($jasa as $js) :
+            foreach ($wedding as $wd) :
             ?>
-
                 <tr>
                     <td><?php echo $no++ ?></td>
-                    <td><?php echo $js->nama_tkg ?></td>
-                    <td><?php echo $js->alamat ?></td>
-                    <td><?php echo $js->umur ?></td>
-                    <td><?php echo $js->jk ?></td>
-                    <td><?php echo $js->pendidikan ?></td>
-                    <td><?php echo $js->agama ?></td>
-                    <td><?php echo $js->keahlian ?></td>
-                    <td><?php echo $js->kategori ?></td>
-                    <td><?php echo $js->harga_tkg ?></td>
-                    <td><?php echo $js->gambar ?></td>
-                    <td><?php echo $js->no_ktp ?></td>
+                    <td><?php echo $wd->id ?></td>
+                    <td><?php echo $wd->nama_wo ?></td>
+                    <td><?php echo $wd->alamat ?></td>
+                    <td><?php echo $wd->no_telp ?></td>
+                    <td><?php echo $wd->akun_ig ?></td>
+                    <td><?php echo $wd->gambar ?></td>
+                    <td><?php echo $wd->no_ktp ?></td>
+                    <td><?php echo $wd->no_rek ?></td>
+                    <td><?php echo $wd->email ?></td>
 
                     <!-- tombol button -->
-                    <td> <?php echo anchor('admin/Data_jasa/detail_jasa/' . $js->id_tkg, '<div class="btn btn-success btn-sm"><i class="fas fa-search-plus"></i></div>') ?> </td>
-                    <td> <?php echo anchor('admin/data_jasa/edit_jasa/' . $js->id_tkg, '<div class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></div>') ?> </td>
-                    <td> <?php echo anchor('admin/data_jasa/hapus_jasa/' . $js->id_tkg, '<div class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></div>') ?> </td>
+                    <td> <?php echo anchor('admin/Data_jasa/detail_jasa/' . $wd->id, '<div class="btn btn-success btn-sm"><i class="fas fa-search-plus"></i></div>') ?> </td>
+                    <td> <?php echo anchor('admin/Data_jasa/edit_jasa/' . $wd->id, '<div class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></div>') ?> </td>
+                    <td> <?php echo anchor('admin/Data_jasa/hapus_jasa/' . $wd->id, '<div class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></div>') ?> </td>
+                     <td> <?php echo anchor('admin/Data_jasa/jenis_paket/' . $wd->id, '<div  class="btn btn-info btn-sm"><i class="fas fa-id-badge"></i></div>') ?> </td>
                 </tr>
-
             <?php endforeach; ?>
 
         </table>

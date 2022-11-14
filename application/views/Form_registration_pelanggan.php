@@ -19,14 +19,15 @@
               <div class="col-lg-12">
                 <div class="p-5">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Buat Account Pelanggan!</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Buat Account Customer!</h1>
                   </div>
 
                   <form class="user" method="post" action="<?= base_url('Auth/registration_pelanggan'); ?>" enctype="multipart/form-data">
 
                     <div class="form-group">
                       <label>Nama Lengkap</label>
-                      <input type="text" class="form-control" id="name" name="name" placeholder="" value="<?= set_value('name'); ?>">
+                      <!-- <input type="text" class="form-control" id="name" name="name" placeholder="" value="<?= set_value('name'); ?>"> -->
+                      <input type="text" class="form-control" id="nama" name="nama" placeholder="" value="<?= set_value('nama'); ?>">
                       <!-- membuat kode tulisan error pada nama  di register-->
                       <?= form_error('name', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>

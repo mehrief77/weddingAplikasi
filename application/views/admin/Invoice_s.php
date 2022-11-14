@@ -1,5 +1,5 @@
 <div class="container-fluid">
-	<h4>Invoice Pemesanan Produk</h4>
+	<h4>Invoice Pemesanan Wedding</h4>
 
 	<div class="navbar-form navbar-right" style="float:right">
 		<?php echo form_open('admin/Invoice/search/') ?>

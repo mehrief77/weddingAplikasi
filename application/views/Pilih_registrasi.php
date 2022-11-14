@@ -23,13 +23,13 @@
                   </div>
                   <div class="row">
                     <div class="col-lg-6">
-                      <img src="<?= base_url('assets/img/workers.png'); ?> " width="50px"><br>
+                      <img src="<?= base_url('assets/img/icons8-temple-60.png'); ?> " width="50px"><br>
                       <a href="<?php echo base_url('Auth/registration') ?>" class="btn btn-info">
-                        Daftar Tukang</a>
+                        Daftar Usaha WO</a>
                     </div>
                     <div class="col-lg-6">
-                      <img src="<?= base_url('assets/img/bussiness-man.png'); ?> " width="50px"><br>
-                      <a href="<?php echo base_url('Auth/registration_pelanggan') ?>" class="btn btn-success">Daftar Pelanggan</a>
+                      <img src="<?= base_url('assets/img/icons8-wedding-64.png'); ?> " width="50px"><br>
+                      <a href="<?php echo base_url('Auth/registration_pelanggan') ?>" class="btn btn-success">Daftar Customer</a>
                     </div>
                   </div>
                 </div>

@@ -37,13 +37,9 @@
                 <img src="<?php echo base_url() . 'uploads/' . $js->gambar ?>" class="img-thumbnail" alt="...">
                 <div class="card-body">
 
-                    <!-- utk mencetak nama sepatu maka diambil nama field dari database toko_online -->
                     <h5 class="card-title mb-1"><?php echo $js->nama_tkg ?></h5>
                     <small><?php echo $js->keahlian ?></small><br>
                     <span class="badge badge-pill badge-success mb-3">Rp. <?php echo number_format($js->harga_tkg, 0, ',', '.') ?></span>
-
-                    <!-- membuat button tambah kekeranjang dengan menggunakan indikator id brg  -->
-
 
                     <a href="<?= base_url(); ?>/Dashboard/tambah_ke_pesan/<?= $js->id_tkg ?>" class="btn btn-primary btn-sm ">Pesan Jasa Pekerja</a>
                     <?php echo anchor('dashboard/detailnya/' . $js->id_tkg, '<div class="btn btn-success btn-sm">Detail</div>')  ?>

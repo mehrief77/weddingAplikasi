@@ -19,11 +19,11 @@
                 </div>
             </div>
 
-             <!-- utk text area, tidak usah menggunakan value -->
+            <!-- utk text area, tidak usah menggunakan value -->
             <div class="form-group row">
                 <label for="name" class="col-sm-2 col-form-label">Alamat</label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" id="alamat" name="alamat" autofocus="" ><?=  $tb_customer['alamat']; ?>
+                    <textarea class="form-control" id="alamat" name="alamat" autofocus=""><?= $tb_customer['alamat']; ?>
                     </textarea>
                     <?= form_error('alamat', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
@@ -40,7 +40,7 @@
             <div class="form-group row">
                 <label for="name" class="col-sm-2 col-form-label">Password</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="password" name="password" value="<?=  $tb_customer['password']; ?>">
+                    <input type="text" class="form-control" id="password" name="password" value="<?= $tb_customer['password']; ?>">
                     <?= form_error('name', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
@@ -58,7 +58,8 @@
                     <div class="row">
                         <div class="col-sm-3">
                             <!--  thumbnail, supaya gambarnya menjadi kecil -->
-                            <img src="<?= base_url('assets/img/profile/') . $tb_customer['gambar']; ?>" class="img-thumbnail">
+                            <!-- <img src="<?= base_url('assets/img/profile/') . $tb_customer['gambar']; ?>" class="img-thumbnail"> -->
+                            <img src="<?= base_url('uploads/') . $tb_customer['gambar']; ?>" class="img-thumbnail">
                         </div>
                         <div class="col-sm-9">
                             <div class="custom-file">

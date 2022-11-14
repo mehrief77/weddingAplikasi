@@ -39,7 +39,7 @@
                       <?php echo form_error('password', '<div class="text-danger small ml-2">', '</div>'); ?>
                     </div>
 
-                    <button type="submit" class="btn btn-primary form-control">
+                    <button type="submit" class="btn btn-success form-control">
                       Login
                     </button>
 

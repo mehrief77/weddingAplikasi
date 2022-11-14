@@ -7,7 +7,7 @@ class Dashboard_admin extends CI_Controller
 	{
 		parent::__construct();
 
-		if ($this->session->userdata('role_id') != '1') {
+		if ($this->session->userdata('id_role') != '1') {
 			$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
 					  <strong>Anda Belum Login, Silahkan Login Terlebih dahuluyyyyy!!!.
 					  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -22,7 +22,7 @@ class Dashboard_admin extends CI_Controller
 	{
 		$data['user'] = $this->db->get_where('tb_user', ['email' =>
 		$this->session->userdata('email')])->row_array();
-		$data['jasa'] = $this->Model_jasa->tampil_data()->result();
+		$data['wedding'] = $this->Model_wo->tampil_data()->result();
 		$this->load->view('templatesadmin/Header');
 		$this->load->view('templatesadmin/Sidebar');
 		$this->load->view('templatesadmin/Topbar', $data);

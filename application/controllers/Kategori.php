@@ -2,56 +2,39 @@
 
 class Kategori extends CI_Controller
 {
-	public function electrical()
+	// public function electrical()
+	public function elegant()
 	{
 		//membuat variabel data dan model
-		$data['electrical'] = $this->Model_kategori->data_electrical()->result();
-		$this->load->view('templates/Header');
-		$this->load->view('templates/Sidebar_wel');
-		$this->load->view('Electrical', $data);
+		$data['elegant'] = $this->Model_kategori->data_elegant()->result();
+		$this->load->view('templates/Header_wel');
+		$this->load->view('Elegant', $data);
+		$this->load->view('templates/Footer');
+	}
+
+	public function best()
+	{
+		$data['best'] = $this->Model_kategori->data_best()->result();
+		$this->load->view('templates/Header_wel');
+		$this->load->view('Best', $data);
 		$this->load->view('templates/Footer');
 	}
 
 
-	public function elektronik()
+	public function glamour()
 	{
-		//membuat variabel data dan model
-		$data['elektronik'] = $this->Model_kategori->data_elektronik()->result();
-		$this->load->view('templates/Header');
-		$this->load->view('templates/Sidebar_wel');
-		$this->load->view('Elektronik', $data);
+		$data['glamour'] = $this->Model_kategori->data_glamour()->result();
+		$this->load->view('templates/Header_wel');
+		$this->load->view('Glamour', $data);
 		$this->load->view('templates/Footer');
 	}
 
 
-	public function perkakas()
+	public function exclusive()
 	{
-		//membuat variabel data dan model
-		$data['perkakas'] = $this->Model_kategori->data_perkakas()->result();
-		$this->load->view('templates/Header');
-		$this->load->view('templates/Sidebar_wel');
-		$this->load->view('Perkakas', $data);
-		$this->load->view('templates/Footer');
-	}
-
-
-	public function tukang_bangunan()
-	{
-		//membuat variabel data dan model
-		$data['bangunan'] = $this->Model_kategori->data_bangunan()->result();
-		$this->load->view('templates/Header');
-		$this->load->view('templates/Sidebar_wel');
-		$this->load->view('Bangunan', $data);
-		$this->load->view('templates/Footer');
-	}
-
-	public function tukang_ledeng()
-	{
-		//membuat variabel data dan model
-		$data['ledeng'] = $this->Model_kategori->data_ledeng()->result();
-		$this->load->view('templates/Header');
-		$this->load->view('templates/Sidebar_wel');
-		$this->load->view('Ledeng', $data);
+		$data['exclusive'] = $this->Model_kategori->data_exclusive()->result();
+		$this->load->view('templates/Header_wel');
+		$this->load->view('Exclusive', $data);
 		$this->load->view('templates/Footer');
 	}
 }

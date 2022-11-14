@@ -2,10 +2,21 @@
 	<!-- Page Heading -->
 	<h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
+	<div class="btn-group" role="group">
+		<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<?= base_url('assets/img/printer.png'); ?> " width="30px"> Cetak Laporan
+		</button>
+
+		<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+			<a class="dropdown-item" href="<?php echo base_url('Customer/cetak'); ?>" target="_blank" class="btn btn-dark">Cetak pdf</a>
+		</div>
+	</div> <br><br>
+
+
 	<div class="table-responsive ">
 		<table class="table table-bordered table-hover table-striped responsive">
 			<tr align="center" class="tag-responsive">
 				<th>ID INVOICE</th>
+				<th>ID PESAN</th>
 				<th>TANGGAL PESAN</th>
 				<th>BATAS BAYAR</th>
 				<th>STATUS PEMBAYARAN</th>
@@ -21,6 +32,9 @@
 					<tr align="center">
 						<td data-header="ID INVOICE">
 							<div class="main"><?php echo $inv->id_invoice ?></div>
+						</td>
+						<td data-header="ID PESAN">
+							<div class="main"><?php echo $inv->id_pesan ?></div>
 						</td>
 						<td data-header="TANGGAL PESAN">
 							<div class="main"><?php echo $inv->tgl_pesan ?></div>

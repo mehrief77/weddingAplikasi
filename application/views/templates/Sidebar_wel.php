@@ -9,7 +9,7 @@
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?php echo base_url('Welcome') ?>">
         <div class="sidebar-brand-icon">
-          <i class="fas fa-hands-helping"></i>
+          <img src="<?= base_url('assets/img/logo_megrashy.png'); ?> " width="80px">
         </div>
         <div class="sidebar-brand-text mx-3">Pengunjung Yang Terhormat</div>
       </a>
@@ -129,33 +129,39 @@
 
             <!-- cara menampilkan jumlah barang yg sudah dimasukan ke dalam keranjang dan memposisikan nama keranjang belanja di sebelah kanan-->
 
-            <div class="navbar">
+            <!-- <div class="navbar">
               <ul class="nav navbar-nav navbar-right">
-                <li><img src="<?= base_url('assets/img/checklist.png'); ?> " width="30px">
-                  <?php
-                  $keranjang = 'Pesanan : ' . $this->cart->total_items() . 'item' ?></i>
-                  <!-- menambah link keranjang belanja -->
-                  <?php echo anchor('dashboard/detail_pesan', $keranjang) ?>
-                </li>
-              </ul>
-            </div>
-          </ul>
+                <li> -->
+            <!-- <img src="<?= base_url('assets/img/note.png'); ?> " width="30px"> -->
+            <!-- <img src="<?php echo base_url('assets\img\add-to-cart.png') ?> " width="30px"> -->
+
+            <!-- <?php
+                  $keranjang = 'Orderanku : ' . $this->cart->total_items() . 'item' ?></i> -->
+            <!-- menambah link keranjang belanja -->
+            <!-- <?php echo anchor('dashboard/detail_pesan', $keranjang) ?>
+                      </li>
+                    </ul>
+                  </div>
+                </ul> -->
 
 
-          <div class="topbar-divider d-none d-sm-block"></div>
-          <!-- button login -->
-          <ul class="na navbar-nav navbar-right">
-            <?php if ($this->session->userdata('email')) { ?>
-              <li>
-                <div>Selamat Datang <?php echo $this->session->userdata('email') ?>
-                </div>
-              </li>
-              <li class="ml-2"><?php echo anchor('Auth/logout', '<i class="fas fa-sign-out-alt">Logout</i>') ?></li>
-            <?php } else { ?>
-              <li><?php echo anchor('auth/login', '<i class="fas fa-sign-in-alt"> Login </i>'); ?></li>
-            <?php } ?>
-          </ul>
-
+            <!-- <div class="topbar-divider d-none d-sm-block"></div> -->
+            <!-- button login -->
+            <!-- <ul class="na navbar-nav navbar-right">
+                  <?php if ($this->session->userdata('email')) { ?>
+                    <li>
+                      <div>Selamat Datang <?php echo $this->session->userdata('email') ?>
+                      </div>
+                    </li>
+      
+                    <li class="ml-2">
+                      <?php echo anchor('Auth/logout', '<i class="fas fa-sign-out-alt">Logout</i>') ?>
+                    </li>
+      
+                  <?php } else { ?>
+                    <li><?php echo anchor('auth/login', '<i class="fas fa-sign-in-alt"> Login </i>'); ?></li>
+                  <?php } ?>
+                </ul> -->
 
         </nav>
         <!-- End of Topbar -->

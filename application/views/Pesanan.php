@@ -4,8 +4,9 @@
     <table class="table table-bordered table-striped table-hover">
         <tr align="center" class="tag-responsive">
             <th>NO</th>
-            <th>Nama Pekerja</th>
-            <th>Memesan</th>
+            <th>ID Paket</th>
+            <th>Nama Paket</th>
+            <th>Orderan</th>
             <th>Harga</th>
             <th>Sub-Total</th>
         </tr>
@@ -19,7 +20,10 @@
                 <td data-header="NO">
                     <div class="main"><?php echo $no++ ?></div>
                 </td>
-                <td data-header="Nama Pekerja">
+                <td data-header="Nomor Paket">
+                    <div class="main"><?php echo $items['id'] ?>
+                </td>
+                <td data-header="Nama paket">
                     <div class="main"><?php echo $items['name'] ?>
                 </td>
                 <td data-header="Memesan">
@@ -38,19 +42,19 @@
         <?php endforeach; ?>
 
         <tr>
-            <td colspan="4"></td>
+            <td colspan="5" align="right"><strong>Grand Total</strong></td>
             <td align="right">Rp. <?php echo number_format($this->cart->total(), 0, ',', '.') ?></td>
         </tr>
     </table>
 
     <div align="right">
-        <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#hapus_pesanan">Hapus Pesanan </button>
+        <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#hapus_pesanan">Hapus Orderan </button>
 
-        <a href="<?php echo base_url('Dashboard_c') ?>">
-            <div class="btn btn-primary btn-sm">Lanjutkan Belanja</div>
+        <a href="<?php echo base_url('Welcome') ?>">
+            <div class="btn btn-primary btn-sm">Lanjutkan Orderan</div>
         </a>
 
-        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#bayar">Pesan</button>
+        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#bayar">Order</button>
 
     </div>
 </div>
@@ -62,7 +66,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Hapus Pesanan</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Hapus Orderan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

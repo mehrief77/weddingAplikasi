@@ -1,39 +1,49 @@
 <div class="container-fluid">
-		<!-- <h4>Detail Pesanan </h4> -->
+	<!-- <h4>Detail Pesanan </h4> -->
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-4 text-gray-800"><?= $title; ?> <div class="btn btn-success btn-sm">No. Invoice : <?php echo $invoice->id_invoice ?></div> </h1>
+	<?php
+	// $total = 0;
+	// foreach ($invoice as $psn) :
+	// $subtotal = $psn['total'] * $psn['harga'];
+	// $total += $subtotal;
+	?>
+	<h1 class="h3 mb-4 text-gray-800"><?= $title; ?> <div class="btn btn-success btn-sm">No. Invoice : <?php echo $invoice['id_invoice'] ?></div>
+	</h1>
 
 	<div class="table-responsive">
 		<table class="table table-bordered table-hover table-striped">
 			<tr align="center" class="tag-responsive">
-				<th>ID PEKERJA</th>
-				<th>NAMA PEKERJA</th>
-				<th>JUMLAH PESANAN</th>
-				<th>HARGA SATUAN</th>
-				<th>SUB-TOTAL</th>
+				<th>ID PESAN</th>
+				<th>ID PAKET</th>
+				<th>NAMA PAKET</th>
+				<th>NAMA WO</th>
+				<th>TANGGAL PESAN</th>
+				<th>HARGA</th>
+				<!-- <th>SUB-TOTAL</th> -->
 			</tr>
 
-			<?php
-			$total = 0;
-			foreach ($pesanan as $psn) :
-				$subtotal = $psn->jumlah * $psn->harga_tkg;
-				$total += $subtotal;
-			?>
 
-				<tr align="center">
-					<td data-header="ID PEKERJA"><div class="main"><?php echo $psn->id_tkg ?></div></td>
-					<td data-header="NAMA PEKERJA"><div class="main"><?php echo $psn->nama_tkg ?></td>
-					<td data-header="JUMLAH PESANAN"><div class="main"><?php echo $psn->jumlah ?></td>
-					<td data-header="HARGA SATUAN"><?php echo number_format($psn->harga_tkg, 0, ',', '.') ?></td>
-					<td data-header="SUB-TOTAL"><?php echo number_format($subtotal, 0, ',', '.') ?></td>
-				</tr>
 
-			<?php endforeach ?> 
-
-			<tr>
-				<td colspan="4" align="right"><strong>Grand Total</strong></td>
-				<td align="right">Rp. <?php echo number_format($total, 0, ',', '.') ?></td>
+			<tr align="center">
+				<td data-header="ID PESAN">
+					<div class="main"><?php echo $invoice['id_pesan'] ?></div>
+				</td>
+				<td data-header="ID PEKERJA">
+					<div class="main"><?php echo $invoice['id_paket'] ?></div>
+				</td>
+				<td data-header="ID PEKERJA">
+					<div class="main"><?php echo $invoice['nama'] ?></div>
+				</td>
+				<td data-header="ID PEKERJA">
+					<div class="main"><?php echo $invoice['nama_wo'] ?></div>
+				</td>
+				<td data-header="TANGGAL PESAN">
+					<div class="main"><?php echo $invoice['tgl_pesan'] ?>
+				</td>
+				<td data-header="TANGGAL PESAN">
+					<div class="main"><?php echo $invoice['harga'] ?>
+				</td>
 			</tr>
 
 		</table>
@@ -46,7 +56,7 @@
 	<?php $bayar = $this->db->where('id_invoice', $this->uri->segment(3))->get('tb_pembayaran')->num_rows(); ?>
 	<?php if ($bayar != 1) : ?>
 
-		<!-- <a href="<?php echo base_url('Customer/bayar/' . $psn->id_invoice) ?>">
+		<!-- <a href="<?php echo base_url('Customer/bayar/' . $invoice['id_invoice']) ?>">
 			<div class="btn btn-success btn-sm"> Bayar </div> -->
 
 		<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#bayar">Bayar</button>
@@ -68,7 +78,7 @@
 			</div>
 
 			<div class="modal-body">
-				<form action="<?php echo base_url('Customer/bayar/' . $psn->id_invoice); ?>" method="post" enctype="multipart/form-data">
+				<form action="<?php echo base_url('Customer/bayar/' . $invoice['id_invoice']); ?>" method="post" enctype="multipart/form-data">
 					Apakah Anda Yakin Ingin Membayar?
 			</div>
 			<div class="modal-footer">

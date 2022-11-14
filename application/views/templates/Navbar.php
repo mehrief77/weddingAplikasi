@@ -48,7 +48,8 @@
 
       <div class="navbar">
         <ul class="nav navbar-nav navbar-right">
-          <li><img src="<?= base_url('assets/img/checklist.png'); ?> " width="30px">
+         <li><img src="<?= base_url('assets/img/checklist.png'); ?> " width="30px">
+          <!-- <li><img src="<?= base_url('assets/img/note.png'); ?> " width="30px"> -->
             <?php
             $keranjang = 'Pesan Jasa Pekerja : ' . $this->cart->total_items() . 'item' ?></i>
             <!-- menambah link keranjang belanja -->
@@ -69,7 +70,7 @@
         </li>
         <li class="ml-2"><?php echo anchor('Auth/logout', '<i class="fas fa-sign-out-alt">Logout</i>') ?></li>
       <?php } else { ?>
-        <li><?php echo anchor('Auth/login', '<i class="fas fa-sign-in-alt"> Login </i>'); ?></li>
+        <li><?php echo anchor('Auth/login', '<i class="fas fa-sign-in-alt"> Loginnnn </i>'); ?></li>
       <?php } ?>
     </ul>
 

@@ -6,29 +6,25 @@
 			<h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
 			<form action="<?php echo base_url() . 'Customer/proses_bayar'; ?>" enctype="multipart/form-data" method="post">
-				<!-- <form action="<?php echo base_url() . 'dashboard/histori_pesanan'; ?>" method="post"> -->
-
-				<!-- <input type="text" hidden name="id_customer" value="<?php echo $tb_customer['id_customer'] ?>"> -->
-				<!-- <input type="text" hidden name="id_invoice" value="<?php echo $this->uri->segment(3); ?>"> -->
 
 				<div class="form-group">
 					<label>ID CUSTOMER</label>
-					<input type="text" name="id_customer" placeholder="Id Customer" class="form-control" value="<?php echo $tb_customer['id_customer'] ?>" readonly>
+					<input type="text" name="id_customer" placeholder="Id Customer" class="form-control" value="<?php echo $invoice[0]['id_customer'] ?>" readonly>
 				</div>
 
 				<div class="form-group">
 					<label>ID INVOICE</label>
-					<input type="text" name="id_invoice" placeholder="Id Invoice" class="form-control" value="<?php echo $id_invoice ?>" readonly>
+					<input type="text" name="id_invoice" placeholder="Id Invoice" class="form-control" value="<?php echo $invoice[0]['invoice_id'] ?>" readonly>
 				</div>
 
 				<div class="form-group">
 					<label>Nama Lengkap</label>
-					<input type="text" name="nama" placeholder="nama lengkap anda" class="form-control" value="<?php echo $this->session->userdata('name') ?>">
+					<input type="text" name="nama" placeholder="nama lengkap anda" class="form-control" value="<?php echo $this->session->userdata('nama') ?>">
 				</div>
 
 
 				<div class="form-group">
-					<label>Alamat Lengkap Lengkap</label>
+					<label>Alamat Lengkap</label>
 					<input type="text" name="alamat" placeholder="alamat lengkap anda" class="form-control" value="<?php echo $this->session->userdata('alamat') ?>">
 				</div>
 
@@ -42,19 +38,19 @@
 					<input type="date" name="tgl_bayar" class="form-control">
 				</div>
 
-				<!-- <div class="form-group">
-					<label>Pembayaran</label>
-					<select class="form-control" name="metode">
-						<option value="BCA - 5218432721">BCA - 5218432721</option>
-						<option value="BNI - 5218432722">BNI - 5218432722</option>
-						<option value="BRI - 5218432723">BRI - 5218432723</option>
-						<option value="MANDIRI - 5218432724">MANDIRI - 5218432724</option>
-					</select>
-				</div> -->
+				<div class="form-group">
+					<label>Nama Bank</label>
+					<input type="text" name="id_bankapp" placeholder="Pembayaran" class="form-control" value="<?php echo $invoice[0]['nama_bank'] ?>" readonly>
+				</div>
 
 				<div class="form-group">
-					<label>Pembayaran</label>
-					<input type="text" name="metode" placeholder="Pembayaran" class="form-control" value="<?php echo $tb_invoice_1['metode'] ?>" readonly>
+					<label>No Rekening</label>
+					<input type="text" name="id_bankapp" placeholder="Pembayaran" class="form-control" value="<?php echo $invoice[0]['no_rek'] ?>" readonly>
+				</div>
+
+				<div class="form-group">
+					<label>Nominal Transfer</label>
+					<input type="text" name="nominal_tf" placeholder="Nominal Transfer" class="form-control" value="">
 				</div>
 
 				<div class="form-group">

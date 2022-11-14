@@ -43,7 +43,7 @@
                         <!--  Selamat Datang <?php echo $this->session->userdata('email') ?> -->
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="mr-2 d-none d-lg-inline text-gray-600 small"> Selamat Datang <?= $user['name']; ?></span>
+                        <span class="mr-2 d-none d-lg-inline text-gray-600 small"> Selamat Datang <?= $user['nama']; ?></span>
                         <img class="img-profile rounded-circle" src="<?= base_url('assets/img/profile/') . $user['gambar']; ?>">
                     </a>
                     <!-- Dropdown - User Information -->

@@ -11,7 +11,7 @@
 
             <div class="for-group">
                 <label>alamat</label>
-                <input type="hidden" name="id_customer" class="form-control" value="<?php echo $cr->id_customer ?>">
+                <input type="hidden" name="id" class="form-control" value="<?php echo $cr->id ?>">
                 <input type="text" name="alamat" class="form-control" value="<?php echo $cr->alamat ?>">
             </div>
 

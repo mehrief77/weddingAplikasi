@@ -5,11 +5,6 @@ class Auth extends CI_Controller
 
     public function index()
     {
-        // membuat session login/registrasi...fungsinya setelah masuk ke halaman user tdk bisa menulis url ke halaman auth....agar tetap di halaman
-        // if ($this->session->userdata('email')) {
-        //     redirect('user');
-        // }
-
         //membuat rules utk email
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
 
@@ -20,7 +15,7 @@ class Auth extends CI_Controller
             $data['title'] = 'Login Page';
             $this->load->view('templates/Header', $data);
             $this->load->view('Form_login');
-            $this->load->view('templates/Footer');
+            // $this->load->view('templates/Footer');
         } else {
             // validasinya success
             $this->login();
@@ -36,14 +31,11 @@ class Auth extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('templates/Header');
             $this->load->view('Form_login');
-            $this->load->view('templates/Footer');
+            // $this->load->view('templates/Footer');
         } else {
             $auth = $this->Model_auth->cek_login();
 
             $auth_customer = $this->Model_auth->cek_customer();
-
-            // var_dump($auth_customer);
-            // die();
 
 
             if ($auth->is_active == "0") {
@@ -55,7 +47,6 @@ class Auth extends CI_Controller
                     </div>');
                 redirect('Auth/login');
                 // die();
-
             }
 
             if ($auth == FALSE) {
@@ -68,43 +59,32 @@ class Auth extends CI_Controller
                 redirect('Auth/login');
             } else {
                 $this->session->set_userdata('email', $auth->email);
-                $this->session->set_userdata('role_id', $auth->role_id);
+                $this->session->set_userdata('id_role', $auth->id_role);
                 $this->session->set_userdata('is_login', true);
 
-                // switch ($auth->role_id) {
-                //     case 1:
-                //         redirect('admin/dashboard_admin');
-                //         break;
-
-                //     case 2:
-                //         redirect('welcome');
-                //         break;
-                //     default:
-                //         break;
-                // }
-                if ($auth->role_id == "1") {
+                if ($auth->id_role == "1") {
                     $cek = $this->Model_auth->data_level_1($auth->email);
                     foreach ($cek as $val) {
-                        $this->session->set_userdata('name', $val->name);
+                        $this->session->set_userdata('nama', $val->nama);
                     }
                     redirect('admin/dashboard_admin');
-                } else if ($auth->role_id == "2") {
+                } else if ($auth->id_role == "2") {
                     $cek = $this->Model_auth->data_level_2($auth->email);
                     foreach ($cek as $val) {
-                        $this->session->set_userdata('name', $val->nama_tkg);
+                        $this->session->set_userdata('id', $val->id);
+                        $this->session->set_userdata('nama', $val->nama_wo);
                     }
                     redirect('jasa/Dashboard_jasa');
-                } else if ($auth->role_id == "3") {
+                } else if ($auth->id_role == "3") {
                     $cek = $this->Model_auth->data_level_3($auth->email);
                     foreach ($cek as $val) {
-                        $this->session->set_userdata('name', $val->nama);
+                        $this->session->set_userdata('nama', $val->nama);
                         $this->session->set_userdata('alamat', $val->alamat);
                         $this->session->set_userdata('no_telp', $val->no_telp);
                         $this->session->set_userdata('email', $val->email);
                     }
                     $this->session->set_userdata('id_customer', $auth_customer->id_customer);
 
-                    // redirect(base_url(''));
                     redirect(base_url('Dashboard_c'));
                 } else {
                     $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -124,41 +104,20 @@ class Auth extends CI_Controller
         $data['title'] = "Pilih Register";
         $this->load->view('templates/Header', $data);
         $this->load->view('Pilih_registrasi');
-        $this->load->view('templates/Footer');
+        // $this->load->view('templates/Footer');
     }
+
 
 
     public function registration()
     {
-        // membuat session login/registrasi...fungsinya setelah masuk ke halaman user tdk bisa menulis url ke halaman auth....agar tetap di halaman
-        // if ($this->session->userdata('email')) {
-        //     redirect('user');
-        // }
-
         // membuat rules
-        $this->form_validation->set_rules('name', 'Name', 'required|trim');
-        $this->form_validation->set_rules('tempat_lahir', 'TMPL', 'required|trim');
-        $this->form_validation->set_rules('tanggal_lahir', 'TGLL', 'required|trim');
+        $this->form_validation->set_rules('nama', 'Name', 'required|trim');
         $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
         $this->form_validation->set_rules('no_telp', 'No Telp', 'required|trim');
-        $this->form_validation->set_rules('agama', 'Agama', 'required|trim');
-        $this->form_validation->set_rules('jk', 'jenis kelamin', 'required|trim');
-        $this->form_validation->set_rules('pendidikan', 'pendidikan', 'required|trim');
-        $this->form_validation->set_rules('keahlian', 'Keahlian', 'required|trim');
-        $this->form_validation->set_rules('kategori', 'kategori', 'required|trim');
-        $this->form_validation->set_rules('harga_tkg', 'harga tkg', 'required|trim');
-        $this->form_validation->set_rules('bayaran', 'Bayaran', 'required|trim');
-        // $this->form_validation->set_rules('harga_tkg', 'harga tkg');
-        // $this->form_validation->set_rules('harga_perhari', 'harga perhari');
-        if (empty($_FILES['gambar']['name'])) {
-            $this->form_validation->set_rules('gambar', 'Foto', 'required');
-        }
-        if (empty($_FILES['no_ktp']['name'])) {
-            $this->form_validation->set_rules('no_ktp', 'No ktp', 'required');
-        }
-        if (empty($_FILES['sertifikat']['name'])) {
-            $this->form_validation->set_rules('sertifikat', 'Sertifikat', 'required');
-        }
+        $this->form_validation->set_rules('akun_ig', 'Akun Instagram', 'required|trim');
+        $this->form_validation->set_rules('id_bank', 'Nama Bank', 'required|trim');
+        $this->form_validation->set_rules('no_rek', 'Nomer Rekening', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[tb_user.email]', [
             'is_unique' => 'This email has already registered!'
         ]);
@@ -168,11 +127,19 @@ class Auth extends CI_Controller
         ]);
         $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
 
+        if (empty($_FILES['gambar']['name'])) {
+            $this->form_validation->set_rules('gambar', 'Foto', 'required');
+        }
+
+        if (empty($_FILES['no_ktp']['name'])) {
+            $this->form_validation->set_rules('no_ktp', 'No ktp', 'required');
+        }
+
 
         // print_r($_FILES);
         // die;
         if ($this->form_validation->run() == false) {
-            $data['title'] = 'WPU User Registration';
+            $data['title'] = 'User Vendor Registration';
             $this->load->view('templates/Header', $data);
             $this->load->view('Form_registrasi');
             $this->load->view('templates/Footer');
@@ -209,51 +176,32 @@ class Auth extends CI_Controller
                 }
             }
 
-            $sertifikat         =  $_FILES['sertifikat']['name'];
-            if ($sertifikat = '') {
-            } else {
-                $config['upload_path']   = './uploads';
-                $config['allowed_types'] = 'jpg|jpeg|png|gif';
-
-                $this->load->library('upload', $config);
-
-                if (!$this->upload->do_upload('sertifikat')) {
-                    echo "Gambar ktp Gagal Diupload!";
-                } else {
-                    $sertifikat = $this->upload->data('file_name');
-                }
-            }
-
             $data = [
                 'email'        => htmlspecialchars($email),
-                'name'         => htmlspecialchars($this->input->post('name', true)),
+                // 'name'         => htmlspecialchars($this->input->post('name', true)),
+                'nama'         => htmlspecialchars($this->input->post('nama', true)),
                 'password'     => $this->input->post('password1'),
-                'role_id'      => 2,
+                // 'role_id'      => 2,
+                'id_role'      => 2,
                 // 'is_active' => 1,
                 'is_active'    => 0,
                 'date_created' => time(),
                 'gambar'       => $gambar,
             ];
 
-            //Tambahin seperti $data diatas
-            // $email = $this->input->post('email', true);
-            $data_tb_user = [
-                'nama_tkg'         => htmlspecialchars($this->input->post('name', true)),
-                'tempat_lahir'     => $this->input->post('tempat_lahir'),
-                'tanggal_lahir'    => $this->input->post('tanggal_lahir'),
+            // Tambahin seperti $data diatas
+            $email = $this->input->post('email', true);
+            $data_tb_wo = [
+                'nama_wo'          => htmlspecialchars($this->input->post('nama', true)),
                 'alamat'           => $this->input->post('alamat'),
                 'no_telp'          => $this->input->post('no_telp'),
-                'agama'            => $this->input->post('agama'),
-                'jk'               => $this->input->post('jk'),
-                'pendidikan'       => $this->input->post('pendidikan'),
-                'keahlian'         => $this->input->post('keahlian'),
-                'kategori'         => $this->input->post('kategori'),
-                'harga_tkg'        => $this->input->post('harga_tkg'),
-                'bayaran'          => $this->input->post('bayaran'),
+                'akun_ig'          => $this->input->post('akun_ig'),
+                'id_bank'          => $this->input->post('id_bank'),
+                'no_rek'           => $this->input->post('no_rek'),
+                'email'            => htmlspecialchars($email),
                 'gambar'           => $gambar,
                 'no_ktp'           => $ktp,
-                'sertifikat'       => $sertifikat,
-                'email'            => htmlspecialchars($email),
+
             ];
 
 
@@ -269,10 +217,9 @@ class Auth extends CI_Controller
 
             // menambahkan data pada saat user registrasi ke table user
             $this->db->insert('tb_user', $data);
-            $this->db->insert('tb_jasa', $data_tb_user);
+            $this->db->insert('tb_wo', $data_tb_wo);
             $this->db->insert('user_token', $user_token);
             $this->_sendEmail($token, 'verify');    // verify dpt darimana?
-
             // setelah data di insert, sistem akan mengirim email yg baru registrasi melalui parameter
             $this->_sendEmail($token, 'verify');
 
@@ -282,9 +229,11 @@ class Auth extends CI_Controller
     }
 
 
+
     public function registration_pelanggan()
     {
-        $this->form_validation->set_rules('name', 'Name', 'required|trim');
+        // $this->form_validation->set_rules('name', 'Name', 'required|trim');
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
         $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
         $this->form_validation->set_rules('no_telp', 'No Telp', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[tb_user.email]', [
@@ -297,7 +246,7 @@ class Auth extends CI_Controller
         $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
 
         if ($this->form_validation->run() == false) {
-            $data['title'] = 'WPU User Registration';
+            $data['title'] = 'Registration Customer';
             $this->load->view('templates/Header', $data);
             $this->load->view('Form_registration_pelanggan');
             $this->load->view('templates/Footer');
@@ -305,26 +254,29 @@ class Auth extends CI_Controller
             $email = $this->input->post('email', true);
             $data = [
                 'email' => htmlspecialchars($email),
-                'name' => htmlspecialchars($this->input->post('name', true)),
+                // 'name' => htmlspecialchars($this->input->post('name', true)),
+                'nama' => htmlspecialchars($this->input->post('nama', true)),
                 'gambar' => 'default.jpg',
                 'password' => $this->input->post('password1'),
-                'role_id' => 3,
+                // 'role_id' => 3,
+                'id_role' => 3,
                 // 'is_active' a/ on off pada login jika 0 mati, jika 1 hidup,
                 'is_active' => 0,
+                // 'is_active' => 1,
                 'date_created' => time()
             ];
 
             //Tambahin seperti $data diatas
             $email = $this->input->post('email', true);
             $data_tb_customer = [
-                'nama' => htmlspecialchars($this->input->post('name', true)),
+                'nama' => htmlspecialchars($this->input->post('nama', true)),
                 'alamat' => $this->input->post('alamat'),
                 'no_telp' => $this->input->post('no_telp'),
                 'email' => htmlspecialchars($email),
                 'password' => $this->input->post('password1'),
                 'gambar' => 'default.jpg',
                 // 'role_id' => 2,
-                // // 'is_active' => 1,
+                // 'is_active' => 1,
                 // 'is_active' => 0,
                 // 'date_created' => time()
             ];
@@ -341,20 +293,9 @@ class Auth extends CI_Controller
             $this->db->insert('tb_user', $data);
             $this->db->insert('tb_customer', $data_tb_customer);
             $this->db->insert('user_token', $user_token);
-            // if ($this->_sendEmail($token, 'verify')) {
-            //     echo "Kirim";
-            //     die();
-            // } else {
-            //     echo "tidak";
-            // }
-
-
-
             $this->_sendEmail($token, 'verify');    // verify dpt darimana?
-
             // setelah data di insert, sistem akan mengirim email yg baru registrasi melalui parameter
             // $this->_sendEmail($token, 'verify');
-
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Congluratulaion! your account has been created. PLEASE ACTIVATE YOUR ACCOUNT</div>');
             redirect('Auth/login');
         }
@@ -365,23 +306,23 @@ class Auth extends CI_Controller
     {
         $config = [
             'protocol'  => 'smtp',
-            'smtp_host' => 'ssl://smtp.gmail.com',
-            // 'smtp_host' => 'ssl://smtp.googlemail.com',
-            'smtp_user' => 'mehrief77@gmail.com',
-            'smtp_pass' => 'romawi123',
+            // 'smtp_host' => 'ssl://smtp.gmail.com',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_user' => 'toufanhidayat07@gmail.com',
+            'smtp_pass' => 'toufan123',
             'smtp_port' => '465',
             'mailtype'  => 'html',
             'charset'   => 'utf-8',
             'newline'   => "\r\n"
         ];
 
+
         // memanggil library email dan membutuhkan parameternya di ci
         $this->load->library('email', $config);
         // sintax ini utuk mengirim email aktiv dari registrasi yg baru di buat!!!!
         $this->email->initialize($config);
 
-        // siapkan email dan memberitahu email itu dikirim dari siapa
-        $this->email->from('mehrief77@gmail.com', 'Mehmet Arief');
+        $this->email->from('toufanhidayat07@gmail.com', 'Toufan Hidayat');
         $this->email->to($this->input->post('email'));
 
         // verify ini sama dengan yg ada di atas(sendEmail), cek verifikasi
@@ -394,14 +335,12 @@ class Auth extends CI_Controller
                 $this->input->post('email') . '&token=' . urlencode($token) . '">Reset Password</a>');  //sintax ini utk membuat link aktivasi ke gmail
         }
 
-
-
         if ($this->email->send()) {
             return true;
         } else {
-            echo $this->email->print_debugger();
-            die;  //jangan pake die....jadi error saat ngirim email
             // echo $this->email->print_debugger();
+            // die;
+            echo $this->email->print_debugger();
         }
     }
 
@@ -410,26 +349,22 @@ class Auth extends CI_Controller
     {
         $email = $this->input->get('email');     //ngambil data yg ada di database melalui input 
         $token = $this->input->get('token');
-        // $user = $this->db->get_where('user', ['email' => $email])->row_array();     // Membuat variabel(inisial $user) dan mengambil data email dari tabel user. 
+        $token = substr($token, 0, 30);
         $user = $this->db->get_where('tb_user', ['email' => $email])->row_array();
         if ($user) {
             $user_token = $this->db->get_where('user_token', ['token' => $token])->row_array();     // membuat variabel(inisial $user_token) dan mengambil data token dari tabel user_token. 
+
             if ($user_token) {
                 if (time() - $user_token['date_created'] < (60 * 60 * 24)) { //utk mengecek waktu saat aktivasi expired atau tdk, 
                     $this->db->set('is_active', 1);   //jika menggunakan query bilder, merubah is_aktive dari 0 menjadi 1.
                     $this->db->where('email', $email);
-                    // $this->db->update('user');
                     $this->db->update('tb_user');
-
                     $this->db->delete('user_token', ['email' => $email]);
                     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">' . $email . ' has been activated! Please login.</div>');
                     redirect('Auth');
                 } else {
-                    // menghapus user yg expired di masing" tabel
-                    // $this->db->delete('user', ['email' => $email]);
                     $this->db->delete('tb_user', ['email' => $email]);
                     $this->db->delete('user_token', ['email' => $email]);
-
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Account activation failed! TOKEN EXPIRED!!!.</div>');
                     redirect('Auth');
                 }

@@ -1,5 +1,4 @@
-<div class="container-fluid"> 
-
+<div class="container-fluid">
 
 	<div class="navbar-form navbar-right" style="float:right">
 		<?php echo form_open('admin/Invoice/search/') ?>
@@ -18,12 +17,15 @@
 		</div>
 	</div> <br><br>
 
+	<?= $this->session->flashdata('message'); ?>
+
 	<h4>Invoice Pemesanan Jasa</h4>
 	<div class="table-responsive">
 		<table class="table table-bordered table-hover table-striped">
 			<tr>
-				<th>Id Invoice</th>
-				<th>Id Customer</th>
+				<!-- <th>Id inv</th> -->
+				<!-- <th>Id Paket</th> -->
+				<th>Id customer</th>
 				<th>Nama Pemesan</th>
 				<th>Alamat</th>
 				<th>Tanggal</th>
@@ -32,20 +34,21 @@
 				<th>Aksi</th>
 			</tr>
 
-			<!-- <tbody> -->
+
 			<?php foreach ($invoice as $inv) : ?>
 				<tr>
-					<td><?php echo $inv->id_invoice ?></td>
-					<td><?php echo $inv->id_customer ?></td>
-					<td><?php echo $inv->nama ?></td>
+					<!-- <td><?php echo $inv->id ?></td> -->
+					<!-- <td><?php echo $inv->id_paket ?></td> -->
+					<td><?php echo $inv->id ?></td>
+					<td><?php echo $inv->nama_customer ?></td>
 					<td><?php echo $inv->alamat ?></td>
 					<td><?php echo $inv->tgl_pesan ?></td>
 					<td><?php echo $inv->batas_bayar ?></td>
 					<td><?php echo $inv->status_pembayaran ?></td>
-					<td><?php echo anchor('admin/Invoice/detail/' . $inv->id_invoice, '<div class="btn btn-primary btn-sm">Detail</div>') ?></td>
+					<td><?php echo anchor('admin/Invoice/detail/' . $inv->invoice_id, '<div class="btn btn-primary btn-sm">Detail</div>') ?></td>
 				</tr>
 			<?php endforeach ?>
-			<!-- </tbody> -->
+
 		</table>
 	</div>
 </div>

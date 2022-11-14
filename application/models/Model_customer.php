@@ -57,7 +57,7 @@ class Model_customer extends CI_Model
 
     public function detail_customer_admin($id)
     {
-        $result = $this->db->where('id_customer', $id)->get('tb_customer');
+        $result = $this->db->where('id', $id)->get('tb_customer');
         if ($result->num_rows() > 0) {
             return $result->result();
         } else {
@@ -75,27 +75,27 @@ class Model_customer extends CI_Model
         $this->db->from('tb_invoice');
         $this->db->where('nama', $getNama);
         $resultData = $this->db->get()->row_array();
-        // $resultData = $this->input->post('id_invoice'); 
-        // var_dump($resultData['id_invoice']);
-        // var_dump($getNama);
-        // var_dump($status);
-        // die();
         $coba = array(
             'status_jasa'   => $status,
         );
 
         $this->db->where('id_invoice', $resultData['id_invoice']);
-        // $this->db->where('tb_invoice', $coba);
         $this->db->update('tb_invoice', $coba);
     }
 
-    public function update_status_cc($id_invoice, $id_tkg, $status_jasa)
-    {
-        $this->db->insert('tb_invoice_detail', ['status_jasa' => $status_jasa, 'id_invoice' => $id_invoice, 'id_tkg' => $id_tkg], ['id_invoice' => $id_invoice]);
 
-        // sintak opsional jika insert dan update
-        // $this->db->update('tb_invoice_detail', ['status_jasa' => $status_jasa, 'id_invoice' => $id_invoice, 'id_tkg' => $id_tkg], ['id_invoice' => $id_invoice]);
+    public function update_status_cc($id_pesan, $status_pesanbycs)
+    {
+        // $this->db->insert('tb_pesanan', ['status_pesanbycs' => $status_pesanbycs]);
+        $this->db->update('tb_pesanan', ['status_pesanbycs' => $status_pesanbycs], ['id' => $id_pesan]);
     }
+
+
+    public function  update_status_c_t($id_pesan, $status_pesananbywo)
+    {
+        $this->db->update('tb_pesanan', ['status_pesananbywo' => $status_pesananbywo], ['id' => $id_pesan]);
+    }
+
 
 
     public function get_keyword($keyword)
@@ -111,13 +111,6 @@ class Model_customer extends CI_Model
 
     public function ambil_id_invoice_test($id_invoice)
     {
-        // $this->db->select('*');
-        // $this->db->from('tb_pesanan a');
-        // // $this->db->join('tb_invoice b', 'a.id_invoice = b.id_invoice', 'left');
-        // $this->db->where('a.id_invoice', $id_invoice);
-        // $get = $this->db->get()->result();
-        // return $get;
-
         $this->db->select('*');
         $this->db->from('tb_pesanan');
         $this->db->join('tb_invoice', 'tb_invoice.id_invoice = tb_pesanan.id_invoice', 'left');
@@ -125,15 +118,5 @@ class Model_customer extends CI_Model
         $this->db->where('tb_pesanan.id_invoice', $id_invoice);
         $get = $this->db->get()->result();
         return $get;
-
-
-        // $this->db->select('*');
-        // $this->db->from('tbrakyat');
-        // $this->db->join('tbsekolah','tbsekolah.id=tbrakyat.id');
-        // $this->db->join('tbstatus','tbstatus.idpendidikan=tbsekolah.idpendidikan');
-        // $this->db->where($aktif);
-        // $query = $this->db->get();
-        // return $query->result();
-
     }
 }

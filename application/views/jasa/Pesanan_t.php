@@ -1,5 +1,12 @@
 <div class="container-fluid">
 
+
+	<?php
+	// $subtotal = 0;
+	// foreach ($tampil as $value) {
+	// 	$subtotal = $value->jumlah * $value->harga_tkg;
+	?>
+
 	<h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
 	<?= $this->session->flashdata('message'); ?>
@@ -14,53 +21,54 @@
 				<th>No telp</th>
 				<th>Email</th>
 				<th>Harga</th>
-				<th>Tanggal Pesan</th>
+				<th>Tanggal Acara</th>
+				<th>Konfirmasi</th>
 				<th>Aksi</th>
 			</tr>
 
-			<?php
-			$subtotal = 0;
-			foreach ($tampil as $value) {
-				$subtotal = $value->jumlah * $value->harga_tkg;
-			?>
-				<tr align="center">
-					<td data-header="ID INVOICE">
-						<div class="main"><?php echo $value->id_invoice; ?></div>
-					</td>
-					<td data-header="Nama">
-						<div class="main"><?php echo $value->nama; ?></div>
-					</td>
-					<td data-header="Alamat">
-						<div class="main"><?php echo $value->alamat; ?></div>
-					</td>
-					<td data-header="No telp">
-						<div class="main"><?php echo $value->no_telp; ?></div>
-					</td>
-					<td data-header="Email">
-						<div class="main"><?php echo $value->email; ?></div>
-					</td>
-					<td data-header="Harga">
-						<div class="main"><?php echo number_format($subtotal, 0, ',', '.'); ?></div>
-					</td>
-					<td data-header="Tanggal Pesan">
-						<div class="main"><?php echo $value->batas_bayar; ?></div>
-					</td>
-					<td data-header="Aksi">
-						<a href=" <?php echo base_url('jasa/Tukang/tolak_pesanan/' . $value->id_invoice) ?>">
-							<div class="btn btn-outline-danger"> Tolak </div>
-						</a>
+			<tr align="center">
+				<td data-header="ID INVOICE">
+					<div class="main"><?php echo $tampil['id_invoice'] ?></div>
+				</td>
+				<td data-header="Nama">
+					<div class="main"><?php echo $tampil['nama'] ?></div>
+				</td>
+				<td data-header="Alamat">
+					<div class="main"><?php echo $tampil['alamat'] ?></div>
+				</td>
+				<td data-header="No telp">
+					<div class="main"><?php echo $tampil['no_telp'] ?></div>
+				</td>
+				<td data-header="Email">
+					<div class="main"><?php echo $tampil['email'] ?></div>
+				</td>
 
-						<!-- <a href="<?php echo base_url('jasa/Tukang/status_t/' . $value->id_invoice) ?>">
-							<div class="btn btn-primary btn-sm"> Status </div>
-						</a> -->
+				<td data-header="Harga">
+					<div class="main"><?php echo $tampil['harga'] ?>
+				</td>
 
-						<a href="<?php echo base_url('jasa/Tukang/status_t_d/' . $value->id_invoice) ?>">
-							<div class="btn btn-primary btn-sm"> Status </div>
-						</a>
-					</td>
-				</tr>
+				<td data-header="Tanggal Acara">
+					<div class="main"><?php echo $tampil['tgl_acara'] ?></div>
+				</td>
+
+				<td data-header="Aksi">
+					<a href="<?php echo base_url('jasa/Wedding/konfirmasi/' . $tampil['id_invoice']) ?>">
+						<div class="btn btn-success btn-sm"> Konfirmasi </div>
+					</a>
+				</td>
+
+				<td data-header="Aksi">
+					<a href=" <?php echo base_url('jasa/Wedding/tolak_pesanan/' . $tampil['id_invoice']) ?>">
+						<div class="btn btn-outline-danger"> Tolak </div>
+					</a> <br><br>
+
+					<a href="<?php echo base_url('jasa/Wedding/status_t_d/' . $tampil['id_invoice']) ?>">
+						<div class="btn btn-primary btn-sm"> Status </div>
+					</a>
+				</td>
+			</tr>
 			<?php
-			}
+			// }
 			?>
 		</table>
 	</div>

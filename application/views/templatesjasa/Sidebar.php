@@ -9,9 +9,9 @@
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
         <div class="sidebar-brand-icon">
-          <i class="fas fa-hands-helping"></i>
+          <img src="<?= base_url('assets/img/logo_megrashy.png'); ?> " width="80px">
         </div>
-        <div class="sidebar-brand-text mx-3">Tukang</div>
+        <div class="sidebar-brand-text mx-3">Vendor Yg Terhormat</div>
       </a>
 
       <!-- Divider -->
@@ -36,37 +36,40 @@
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('jasa/Tukang/Profile') ?>">
+        <a class="nav-link" href="<?php echo base_url('jasa/Wedding/Profile') ?>">
           <!-- <i class="fas fa-user-tie"></i> -->
-          <img src="<?= base_url('assets/img/workers.png'); ?> " width="30px">
-          <span>Profile Tukang</span>
+          <img src="<?= base_url('assets/img/profile.png'); ?> " width="30px">
+          <span>My Profile</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('jasa/Tukang/edit') ?>">
-          <!-- <i class="fas fa-user-edit"></i> -->
-          <img src="<?= base_url('assets/img/user.png'); ?> " width="30px">
-          <span>Edit Tukang</span>
+        <a class="nav-link" href="<?php echo base_url('jasa/Wedding/buat_usaha') ?>">
+          <!-- <i class="fas fa-user-tie"></i> -->
+          <img src="<?= base_url('assets/img/shop-icon.png'); ?> " width="30px">
+          <span>Buat Usaha Wedding</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('jasa/Tukang/pesanan_t') ?>">
-          <img src="<?= base_url('assets/img/order.png'); ?> " width="30px">
-          <!-- <i class="fas fa-user-edit"></i> -->
-          <span>Pesanan Masuk</span></a>
+        <a class="nav-link" href="<?php echo base_url('jasa/Wedding/paket') ?>">
+          <img src="<?= base_url('assets/img/data_paket.png'); ?> " width="30px">
+          <span>Data Paket Wedding</span>
+        </a>
       </li>
 
-
-      <!-- <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('jasa/Tukang/status_t') ?>"> -->
-      <!-- <i class="fas fa-fw fa-file-invoice"></i> -->
-      <!-- <img src="<?= base_url('assets/img/biography.png'); ?> " width="30px">
-          <span>Status</span>
+      <li class="nav-item">
+        <a class="nav-link" href="<?php echo base_url('jasa/Wedding/edit') ?>">
+          <img src="<?= base_url('assets/img/editor.png'); ?> " width="30px">
+          <span>Edit Wedding Org</span>
         </a>
-      </li> -->
+      </li>
 
+      <li class="nav-item">
+        <a class="nav-link" href="<?php echo base_url('jasa/Wedding/pesanan_t') ?>">
+          <img src="<?= base_url('assets/img/notification.png'); ?> " width="30px">
+          <span>Orderan Masuk</span></a>
+      </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">

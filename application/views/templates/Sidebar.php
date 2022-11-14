@@ -11,9 +11,11 @@
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?php echo base_url('Dashboard_c') ?>">
         <div class="sidebar-brand-icon">
-          <i class="fas fa-hands-helping"></i>
+          <!-- <i class="fas fa-hands-helping"></i> -->
+          <img src="<?= base_url('assets/img/logo_megrashy.png'); ?> " width="80px">
         </div>
         <div class="sidebar-brand-text mx-3">Customer Yang Terhormat</div>
+
       </a>
 
       <!-- Divider -->
@@ -65,7 +67,7 @@
         <!--  <a class="nav-link" href="<?php echo base_url('Customer/berita_t') ?>"> -->
         <a class="nav-link" href="<?php echo base_url('Customer/status_t') ?>">
           <img src="<?= base_url('assets/img/newspaper.png'); ?> " width="30px">
-          <span>Status Tukang</span></a>
+          <span>Status Wedding</span></a>
       </li>
 
 

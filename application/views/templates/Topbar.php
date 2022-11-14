@@ -21,9 +21,11 @@
         <!-- cara menampilkan jumlah barang yg sudah dimasukan ke dalam keranjang dan memposisikan nama keranjang belanja di sebelah kanan-->
         <div class="navbar">
           <ul class="nav navbar-nav navbar-right">
-            <li><img src="<?= base_url('assets/img/checklist.png'); ?> " width="30px">
+            <li>
+              <!-- <img src="<?= base_url('assets/img/note.png'); ?> " width="30px"> -->
+              <img src="<?php echo base_url('assets\img\add-to-cart.png') ?> " width="30px">
               <?php
-              $keranjang = 'Pesanan : ' . $this->cart->total_items() . 'item' ?></i>
+              $keranjang = 'Orderan : ' . $this->cart->total_items() . 'item' ?></i>
               <!-- menambah link keranjang belanja -->
               <?php echo anchor('dashboard/detail_pesan', $keranjang) ?>
             </li>
@@ -37,7 +39,10 @@
         <li class="nav-item dropdown no-arrow">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="mr-2 d-none d-lg-inline text-gray-600 small"> Selamat Datang <?= $tb_customer['email']; ?></span>
-            <img class="img-profile rounded-circle" src="<?= base_url('assets/img/profile/') . $tb_customer['gambar']; ?>">
+            <!-- <img class="img-profile rounded-circle" src="<?= base_url('assets/img/profile/') . $tb_customer['gambar']; ?>">
+          </a> -->
+          
+          <img class="img-profile rounded-circle" src="<?= base_url('uploads/') . $tb_customer['gambar']; ?>">
           </a>
 
           <!-- Dropdown - User Information -->

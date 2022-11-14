@@ -8,8 +8,8 @@
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon">
-          <i class="fas fa-hands-helping"></i>
+         <div class="sidebar-brand-icon">
+          <img src="<?= base_url('assets/img/logo_megrashy.png'); ?> " width="80px">
         </div>
         <div class="sidebar-brand-text mx-3">Admin</div>
       </a>
@@ -31,7 +31,7 @@
         <a class="nav-link" href="<?php echo base_url('admin/Data_jasa') ?>">
           <!-- <i class="fas fa-fw fa-database"></i> -->
           <img src="<?= base_url('assets/img/database.png'); ?> " width="30px">
-          <span>Data jasa Pekerja</span>
+          <span>Data Vendor</span>
         </a>
       </li>
 
